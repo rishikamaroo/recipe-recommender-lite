@@ -9,6 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+/**
+ * Script to add copyright headers
+ */
 const command = 'copyright-header --fix --copyrightHolder "Rishika Maroo" --include ".ts"';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
