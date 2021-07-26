@@ -16,10 +16,10 @@ class Logger {
     }
     emitLogMessage(msgType, msg, supportingDetails) {
         if (supportingDetails.length > 0) {
-            console.log('[' + msgType.toUpperCase() + '] ' + msg + supportingDetails);
+            console.log("[" + msgType.toUpperCase() + "] " + msg + supportingDetails);
         }
         else {
-            console.log('[' + msgType.toUpperCase() + '] ' + msg);
+            console.log("[" + msgType.toUpperCase() + "] " + msg);
         }
     }
 }

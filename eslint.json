@@ -1,0 +1,26 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "import"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "max-len": ["error", 120],
+        "no-caller": "error",
+        "no-multi-spaces": "error",
+        "no-console": ["error", {"allow": ["log", "debug", "info", "warn", "error"]}],
+        "camelcase": "error",
+        "no-irregular-whitespace": ["error", {"skipStrings": false}],
+        "no-return-await": "error",
+        "no-var": "error",
+        "no-trailing-spaces": "error",
+        "no-empty": "off",
+        "prefer-const": "error",
+        "object-curly-spacing": ["error", "always"],
+        "no-unexpected-multiline": "error",
+        "no-extra-semi": "error"
+    }
+}

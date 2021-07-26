@@ -13,6 +13,6 @@ export interface ITodo extends mongoose.Document {
 }
 
 export interface IException {
-  code: string;
+  code: number;
   message?: string;
 }
