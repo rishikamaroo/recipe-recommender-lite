@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import { Router } from 'express';
 import { createRecipe, getRecipe, patchRecipe, deleteRecipe } from '../controllers/recipe';
 

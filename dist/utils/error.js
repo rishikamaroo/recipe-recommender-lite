@@ -1,4 +1,5 @@
 "use strict";
+/* Copyright (c) 2021 Rishika Maroo */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomError = exports.InternalServerError = exports.NotFoundError = exports.InvalidRequestError = exports.ValidationError = void 0;
 class ValidationError extends Error {

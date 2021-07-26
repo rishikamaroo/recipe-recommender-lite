@@ -1,7 +1,6 @@
-/* Copyright (cs) 2021 Rishika Maroo */
+/* Copyright (c) 2021 Rishika Maroo */
 
-const command =
-  'copyright-header ' + '--fix --copyrightHolder "Rishika Maroo" ' + '--include ".ts" ';
+const command = 'copyright-header --fix --copyrightHolder "Rishika Maroo" --include ".ts"';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 async function addCopyright() {

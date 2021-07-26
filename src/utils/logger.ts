@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import { LogColor, LogTypes } from '../constants';
 import { LogInterface } from '../types';
 

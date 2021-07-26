@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import { HTTPStatusCode } from '../constants';
 import { IException } from '../types';
 

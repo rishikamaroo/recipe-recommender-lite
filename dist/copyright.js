@@ -1,5 +1,5 @@
 "use strict";
-/* Copyright (cs) 2021 Rishika Maroo */
+/* Copyright (c) 2021 Rishika Maroo */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const command = 'copyright-header ' + '--fix --copyrightHolder "Rishika Maroo" ' + '--include ".ts" ';
+const command = 'copyright-header --fix --copyrightHolder "Rishika Maroo" --include ".ts"';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 function addCopyright() {

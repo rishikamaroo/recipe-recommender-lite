@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import * as _ from 'lodash';
 import { RequestHandler } from 'express';
 import { v4 as uuidv4 } from 'uuid';
