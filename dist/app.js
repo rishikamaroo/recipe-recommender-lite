@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const todos_1 = __importDefault(require("./routes/todos"));
+const body_parser_1 = require("body-parser");
+const mongoose_1 = __importDefault(require("mongoose"));
+mongoose_1.default.connect("mongodb://localhost:27017/todo", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}, () => {
+    console.log("*** 1 connected to database");
+});
+const db = mongoose_1.default.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+    console.log("**** 2 connected to database");
+});
+const app = express_1.default();
+app.use(body_parser_1.json());
+app.use("/todos", todos_1.default);
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: err.message });
+});
+app.listen(3000);
