@@ -27,7 +27,7 @@ async function getTodoP(id: string): Promise<ITodo[]> {
   logger.debug("getting a Todo", id);
   try {
     const result = await Todo.find({ id: id });
-    logger.debug("found " + result);
+    logger.debug("found ", result);
     return result;
   } catch (err) {
     logger.error("error while getting a Todo ", ...err);
