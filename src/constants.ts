@@ -9,3 +9,12 @@ export const enum HTTPStatusCode {
   InternalServerError = 500,
   ServiceUnavailable = 503,
 }
+
+export const enum LogColor {
+  Red = '\u001b[1;31m',
+  Green = '\u001b[1;32m',
+  Yellow = '\u001b[1;33m',
+  White = '\u001b[0;37m',
+}
+
+export type LogTypes = 'debug' | 'info' | 'warn' | 'error';

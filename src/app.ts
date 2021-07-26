@@ -20,9 +20,10 @@ async function initDb() {
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.debug('*** connected to database');
+      logger.info('*** Connected to database');
     },
   );
+  mongoose.set('useFindAndModify', false);
 }
 
 async function createApp() {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTodoP = exports.createTodoP = exports.Todo = void 0;
+exports.patchTodoP = exports.getTodoP = exports.deleteTodoP = exports.createTodoP = exports.Todo = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = require("../utils/logger");
 const error_1 = require("../utils/error");
@@ -54,3 +54,37 @@ function getTodoP(id) {
     });
 }
 exports.getTodoP = getTodoP;
+function patchTodoP(id, text) {
+    return __awaiter(this, void 0, void 0, function* () {
+        logger.debug('patching text Todo for id & text: ', [id, text]);
+        try {
+            const updatedResult = yield Todo.findOneAndUpdate({ id: id }, { $set: { text: text } }, { new: true });
+            if (!updatedResult) {
+                throw new error_1.NotFoundError('no record found for id: ' + id);
+            }
+            logger.debug('the result is updated ', updatedResult);
+            return updatedResult;
+        }
+        catch (err) {
+            logger.error('error while patching text to a Todo ', err);
+            throw new error_1.CustomError(err.message, err.code);
+        }
+    });
+}
+exports.patchTodoP = patchTodoP;
+function deleteTodoP(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        logger.warn('deleting a Todo for id: ', id);
+        try {
+            const updatedResult = yield Todo.deleteOne({ id: id });
+            if (updatedResult.deletedCount === 0) {
+                throw new error_1.NotFoundError('the record you are trying to remove does not exist with id: ' + id);
+            }
+        }
+        catch (err) {
+            logger.error('error while delete a Todo ', err);
+            throw new error_1.CustomError(err.message, err.code);
+        }
+    });
+}
+exports.deleteTodoP = deleteTodoP;
