@@ -1,5 +1,7 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import express, { Request, Response, NextFunction } from 'express';
-import todoRoutes from './routes/todos';
+import recipeRoutes from './routes/recipe';
 import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
@@ -14,7 +16,7 @@ async function initDb() {
   db.once('open', function () {});
 
   mongoose.connect(
-    `${MONGO_CONNECT_URL}/todo`,
+    `${MONGO_CONNECT_URL}/recipe`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -30,7 +32,7 @@ async function createApp() {
   await initDb();
   const app = express();
   app.use(json());
-  app.use('/todos', todoRoutes);
+  app.use('/recipe', recipeRoutes);
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(HTTPStatusCode.InternalServerError).json({ message: err.message });
   });

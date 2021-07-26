@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 const dotenv = require('dotenv');
 dotenv.config();
 

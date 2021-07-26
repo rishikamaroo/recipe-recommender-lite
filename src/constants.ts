@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 export const enum HTTPStatusCode {
   OK = 200,
   Created = 201,
@@ -18,3 +20,5 @@ export const enum LogColor {
 }
 
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';
+
+export type RecipeTypes = 'veg' | 'non-veg' | 'vegan';
