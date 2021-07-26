@@ -16,7 +16,7 @@ const createTodo = (req, res, _next) => __awaiter(void 0, void 0, void 0, functi
     const text = req.body.text;
     const result = yield todos_1.createTodoP(uuid_1.v4().toString(), text);
     res.status(201 /* Created */).json({
-        message: "Created the todo.",
+        message: 'Created the todo.',
         createTodo: { id: result.id, text: result.text },
     });
 });

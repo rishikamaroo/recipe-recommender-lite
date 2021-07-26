@@ -1,5 +1,5 @@
-import { HTTPStatusCode } from "../constants";
-import { IException } from "../types";
+import { HTTPStatusCode } from '../constants';
+import { IException } from '../types';
 
 export class ValidationError extends Error implements IException {
   public code: number;
@@ -43,7 +43,7 @@ export class CustomError extends Error implements IException {
     super();
     this.message =
       message ||
-      "The action you are trying to take is not avialable, please contact Author for suggestions";
+      'The action you are trying to take is not avialable, please contact Author for suggestions';
     this.code = code || HTTPStatusCode.InternalServerError;
   }
 }

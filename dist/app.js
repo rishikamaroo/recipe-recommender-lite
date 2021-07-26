@@ -22,13 +22,13 @@ function initDb() {
     return __awaiter(this, void 0, void 0, function* () {
         const logger = new logger_1.Logger();
         const db = mongoose_1.default.connection;
-        db.on("error", console.error.bind(console, "connection error:"));
-        db.once("open", function () { });
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', function () { });
         mongoose_1.default.connect(`${config_1.MONGO_CONNECT_URL}/todo`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }, () => {
-            logger.debug("*** connected to database");
+            logger.debug('*** connected to database');
         });
     });
 }
@@ -37,11 +37,9 @@ function createApp() {
         yield initDb();
         const app = express_1.default();
         app.use(body_parser_1.json());
-        app.use("/todos", todos_1.default);
+        app.use('/todos', todos_1.default);
         app.use((err, req, res, next) => {
-            res
-                .status(500 /* InternalServerError */)
-                .json({ message: err.message });
+            res.status(500 /* InternalServerError */).json({ message: err.message });
         });
         app.listen(config_1.PORT);
     });

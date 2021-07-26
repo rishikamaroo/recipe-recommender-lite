@@ -21,6 +21,7 @@
         "prefer-const": "error",
         "object-curly-spacing": ["error", "always"],
         "no-unexpected-multiline": "error",
-        "no-extra-semi": "error"
+        "no-extra-semi": "error",
+        "quotes": [2, "single", { "avoidEscape": true }]
     }
 }

@@ -37,5 +37,10 @@
     "eslint": "^7.31.0",
     "eslint-plugin-react": "^7.24.0",
     "nodemon": "^2.0.12"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100
   }
 }

@@ -1,14 +1,14 @@
-import * as _ from "lodash";
-import { RequestHandler } from "express";
-import { v4 as uuidv4 } from "uuid";
-import { createTodoP, getTodoP } from "../models/todos";
-import { HTTPStatusCode } from "../constants";
+import * as _ from 'lodash';
+import { RequestHandler } from 'express';
+import { v4 as uuidv4 } from 'uuid';
+import { createTodoP, getTodoP } from '../models/todos';
+import { HTTPStatusCode } from '../constants';
 
 export const createTodo: RequestHandler = async (req, res, _next) => {
   const text = (req.body as { text: string }).text;
   const result = await createTodoP(uuidv4().toString(), text);
   res.status(HTTPStatusCode.Created).json({
-    message: "Created the todo.",
+    message: 'Created the todo.',
     createTodo: { id: result.id, text: result.text },
   });
 };

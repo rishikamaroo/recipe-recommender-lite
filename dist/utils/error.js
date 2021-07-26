@@ -38,7 +38,7 @@ class CustomError extends Error {
         super();
         this.message =
             message ||
-                "The action you are trying to take is not avialable, please contact Author for suggestions";
+                'The action you are trying to take is not avialable, please contact Author for suggestions';
         this.code = code || 500 /* InternalServerError */;
     }
 }

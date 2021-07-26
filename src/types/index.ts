@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export interface LogInterface {
   debug(primaryMessage: string, ...supportingData: any[]): void;
