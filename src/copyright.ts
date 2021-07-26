@@ -5,9 +5,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 async function addCopyright() {
   try {
-    const { stdout, stderr } = await exec(command);
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
+    const { _stdout, _stderr } = await exec(command);
   } catch (err) {
     console.error(err);
   }
