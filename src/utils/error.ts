@@ -3,6 +3,9 @@
 import { HTTPStatusCode } from '../constants';
 import { IException } from '../types';
 
+/**
+ * Validation error
+ */
 export class ValidationError extends Error implements IException {
   public code: number;
   constructor(message: string) {
@@ -12,6 +15,9 @@ export class ValidationError extends Error implements IException {
   }
 }
 
+/**
+ * Invalid request error
+ */
 export class InvalidRequestError extends Error implements IException {
   public code: number;
   constructor(message: string) {
@@ -21,6 +27,9 @@ export class InvalidRequestError extends Error implements IException {
   }
 }
 
+/**
+ * Not found error
+ */
 export class NotFoundError extends Error implements IException {
   public code: number;
   constructor(message: string) {
@@ -30,6 +39,9 @@ export class NotFoundError extends Error implements IException {
   }
 }
 
+/**
+ * Internal server error
+ */
 export class InternalServerError extends Error implements IException {
   public code: number;
   constructor(message: string) {
@@ -39,6 +51,9 @@ export class InternalServerError extends Error implements IException {
   }
 }
 
+/**
+ * Custom error
+ */
 export class CustomError extends Error implements IException {
   public code: number;
   constructor(message?: string, code?: number) {

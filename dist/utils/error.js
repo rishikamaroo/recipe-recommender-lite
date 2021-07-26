@@ -2,6 +2,9 @@
 /* Copyright (c) 2021 Rishika Maroo */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomError = exports.InternalServerError = exports.NotFoundError = exports.InvalidRequestError = exports.ValidationError = void 0;
+/**
+ * Validation error
+ */
 class ValidationError extends Error {
     constructor(message) {
         super();
@@ -10,6 +13,9 @@ class ValidationError extends Error {
     }
 }
 exports.ValidationError = ValidationError;
+/**
+ * Invalid request error
+ */
 class InvalidRequestError extends Error {
     constructor(message) {
         super();
@@ -18,6 +24,9 @@ class InvalidRequestError extends Error {
     }
 }
 exports.InvalidRequestError = InvalidRequestError;
+/**
+ * Not found error
+ */
 class NotFoundError extends Error {
     constructor(message) {
         super();
@@ -26,6 +35,9 @@ class NotFoundError extends Error {
     }
 }
 exports.NotFoundError = NotFoundError;
+/**
+ * Internal server error
+ */
 class InternalServerError extends Error {
     constructor(message) {
         super();
@@ -34,6 +46,9 @@ class InternalServerError extends Error {
     }
 }
 exports.InternalServerError = InternalServerError;
+/**
+ * Custom error
+ */
 class CustomError extends Error {
     constructor(message, code) {
         super();

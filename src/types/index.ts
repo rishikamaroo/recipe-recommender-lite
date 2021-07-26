@@ -3,6 +3,9 @@
 import mongoose from 'mongoose';
 import { RecipeTypes } from '../constants';
 
+/**
+ * Log interface
+ */
 export interface LogInterface {
   debug(primaryMessage: string, ...supportingData: any[]): void;
   info(primaryMessage: string, ...supportingData: any[]): void;
@@ -10,6 +13,9 @@ export interface LogInterface {
   error(primaryMessage: string, ...supportingData: any[]): void;
 }
 
+/**
+ * Irecipe interface
+ */
 export interface IRecipe extends mongoose.Document {
   id: string;
   text: string;
@@ -21,6 +27,9 @@ export interface IRecipe extends mongoose.Document {
   s3ImageAddress?: string;
 }
 
+/**
+ * Iexception interface
+ */
 export interface IException {
   code: number;
   message?: string;

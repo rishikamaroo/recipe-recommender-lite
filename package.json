@@ -38,6 +38,7 @@
     "copyright-header": "^0.4.6",
     "eslint": "^7.31.0",
     "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "nodemon": "^2.0.12"
   },
   "prettier": {

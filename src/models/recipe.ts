@@ -13,6 +13,13 @@ const RecipeSchema = new mongoose.Schema({
 const Recipe = mongoose.model<IRecipe>('Recipe', RecipeSchema);
 const logger = new Logger();
 
+/**
+ * Creates a recipe
+ *
+ * @param id - recipe id
+ * @param text - recipe text
+ * @returns Promise<IRecipe>
+ */
 async function createRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('creating a recipe for id: ', id);
   try {
@@ -24,6 +31,12 @@ async function createRecipeP(id: string, text: string): Promise<IRecipe> {
   }
 }
 
+/**
+ * Gets recipe for given id
+ *
+ * @param id - recipe id
+ * @returns Promise<IRecipe>
+ */
 async function getRecipeP(id: string): Promise<IRecipe[]> {
   logger.debug('getting a recipe for id: ', id);
   try {
@@ -38,6 +51,13 @@ async function getRecipeP(id: string): Promise<IRecipe[]> {
   }
 }
 
+/**
+ * Patches recipe for given id
+ *
+ * @param id - recipe id
+ * @param text - recipe text
+ * @returns Promise<IRecipe>
+ */
 async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('patching text recipe for id & text: ', [id, text]);
   try {
@@ -57,6 +77,12 @@ async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
   }
 }
 
+/**
+ * Deletes recipe for given id
+ *
+ * @param id - recipe id
+ * @returns Promise<void>
+ */
 async function deleteRecipeP(id: string): Promise<void> {
   logger.warn('deleting a recipe for id: ', id);
   try {
@@ -65,7 +91,7 @@ async function deleteRecipeP(id: string): Promise<void> {
       throw new NotFoundError('the record you are trying to remove does not exist with id: ' + id);
     }
   } catch (err) {
-    logger.error('error while delete a Recipe ', err);
+    logger.error('error while deleting a recipe ', err);
     throw new CustomError(err.message, err.code);
   }
 }
