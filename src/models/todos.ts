@@ -36,4 +36,36 @@ async function getTodoP(id: string): Promise<ITodo[]> {
   }
 }
 
-export { Todo, createTodoP, getTodoP };
+async function patchTodoP(id: string, text: string): Promise<ITodo> {
+  logger.debug('patching text Todo for id & text: ', [id, text]);
+  try {
+    const updatedResult = await Todo.findOneAndUpdate(
+      { id: id },
+      { $set: { text: text } },
+      { new: true },
+    );
+    if (!updatedResult) {
+      throw new NotFoundError('no record found for id: ' + id);
+    }
+    logger.debug('the result is updated ', updatedResult);
+    return updatedResult;
+  } catch (err) {
+    logger.error('error while patching text to a Todo ', err);
+    throw new CustomError(err.message, err.code);
+  }
+}
+
+async function deleteTodoP(id: string): Promise<void> {
+  logger.warn('deleting a Todo for id: ', id);
+  try {
+    const updatedResult = await Todo.deleteOne({ id: id });
+    if (updatedResult.deletedCount === 0) {
+      throw new NotFoundError('the record you are trying to remove does not exist with id: ' + id);
+    }
+  } catch (err) {
+    logger.error('error while delete a Todo ', err);
+    throw new CustomError(err.message, err.code);
+  }
+}
+
+export { Todo, createTodoP, deleteTodoP, getTodoP, patchTodoP };

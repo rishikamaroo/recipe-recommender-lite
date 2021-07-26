@@ -28,8 +28,9 @@ function initDb() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }, () => {
-            logger.debug('*** connected to database');
+            logger.info('*** Connected to database');
         });
+        mongoose_1.default.set('useFindAndModify', false);
     });
 }
 function createApp() {
