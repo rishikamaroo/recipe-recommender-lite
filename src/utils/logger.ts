@@ -1,5 +1,5 @@
 import { LogColor, LogTypes } from '../constants';
-import { LogInterface } from '../types';
+import { LogInterface } from '../types/recipe';
 
 export class Logger implements LogInterface {
   public debug(msg: string, ...supportingDetails: any[]): void {
