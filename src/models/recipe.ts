@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IRecipe } from '../types/recipe';
+import { IRecipe } from '../types';
 import { Logger } from '../utils/logger';
 import { CustomError, InvalidRequestError, NotFoundError } from '../utils/error';
 

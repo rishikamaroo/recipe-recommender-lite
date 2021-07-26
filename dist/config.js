@@ -1,4 +1,5 @@
 "use strict";
+/* Copyright (c) 2021 Rishika Maroo */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PORT = exports.MONGO_CONNECT_URL = exports.MONGO_HOST = exports.MONGO_PORT = void 0;
 const dotenv = require('dotenv');

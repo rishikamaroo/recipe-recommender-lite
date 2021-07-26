@@ -1,5 +1,5 @@
 import { HTTPStatusCode } from '../constants';
-import { IException } from '../types/recipe';
+import { IException } from '../types';
 
 export class ValidationError extends Error implements IException {
   public code: number;
