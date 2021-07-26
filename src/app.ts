@@ -9,7 +9,7 @@ import { Logger } from './utils/logger';
 import { MONGO_CONNECT_URL, PORT } from './config';
 
 /**
- * Inits db
+ * Initializes db connections
  */
 async function initDb() {
   const logger = new Logger();

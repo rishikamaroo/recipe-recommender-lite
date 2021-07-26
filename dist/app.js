@@ -20,7 +20,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = require("./utils/logger");
 const config_1 = require("./config");
 /**
- * Inits db
+ * Initializes db connections
  */
 function initDb() {
     return __awaiter(this, void 0, void 0, function* () {
