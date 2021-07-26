@@ -15,9 +15,7 @@ const exec = util.promisify(require('child_process').exec);
 function addCopyright() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { stdout, stderr } = yield exec(command);
-            console.log('stdout:', stdout);
-            console.log('stderr:', stderr);
+            const { _stdout, _stderr } = yield exec(command);
         }
         catch (err) {
             console.error(err);
