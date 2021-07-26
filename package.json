@@ -1,0 +1,32 @@
+{
+  "name": "ts-node-express-lite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon dist/app.js",
+    "prettier": "prettier --write \"*/**/*.ts\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "eslint": "^7.31.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.0.1",
+    "mongoose": "^5.13.3",
+    "prettier": "^2.3.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/lodash": "^4.14.171",
+    "@types/mongodb": "^3.6.20",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.4.1",
+    "@types/uuid": "^8.3.1",
+    "nodemon": "^2.0.12"
+  }
+}
