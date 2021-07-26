@@ -15,15 +15,20 @@ const todos_1 = require("../models/todos");
 const createTodo = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const text = req.body.text;
     const result = yield todos_1.createTodoP(uuid_1.v4().toString(), text);
-    res.status(201).json({
-        message: 'Created the todo.',
+    res.status(201 /* Created */).json({
+        message: "Created the todo.",
         createTodo: { id: result.id, text: result.text },
     });
 });
 exports.createTodo = createTodo;
 const getTodo = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.body.id;
-    const result = yield todos_1.getTodoP(id);
-    res.status(200).json({ todo: result });
+    try {
+        const id = req.body.id;
+        const result = yield todos_1.getTodoP(id);
+        res.status(200 /* OK */).json({ todo: result });
+    }
+    catch (err) {
+        res.status(404 /* NotFound */).json({ err: err });
+    }
 });
 exports.getTodo = getTodo;

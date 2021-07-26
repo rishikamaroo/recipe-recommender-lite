@@ -20,59 +20,37 @@ const todoSchema = new mongoose_1.default.Schema({
     id: { type: String, required: true },
     text: { type: String, required: true },
 });
-const Todo = mongoose_1.default.model('Todo', todoSchema);
+const Todo = mongoose_1.default.model("Todo", todoSchema);
 exports.Todo = Todo;
 const logger = new logger_1.Logger();
 function createTodoP(id, text) {
     return __awaiter(this, void 0, void 0, function* () {
-        logger.debug('creating a Todo', ...id);
+        logger.debug("creating a Todo for id: ", id);
         try {
             const result = yield Todo.create({ id: id, text: text });
-            logger.debug('created one ', JSON.stringify(result));
             return result;
         }
         catch (err) {
-            logger.error('error while creating a Todo ', ...err);
-            throw new error_1.InvalidRequest(err.message);
+            logger.error("error while creating a Todo ", err);
+            throw new error_1.InvalidRequestError(err.message);
         }
     });
 }
 exports.createTodoP = createTodoP;
 function getTodoP(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        logger.debug('getting a Todo', id);
+        logger.debug("getting a Todo for id: ", id);
         try {
             const result = yield Todo.find({ id: id });
-            logger.debug('found ' + result);
+            if (result.length === 0) {
+                throw new error_1.NotFoundError("no record found for id: " + id);
+            }
             return result;
         }
         catch (err) {
-            logger.error('error while getting a Todo ', ...err);
-            throw new error_1.NotFoundError(err.message);
+            logger.error("error while getting a Todo ", err);
+            throw new error_1.CustomError(err.message, err.code);
         }
     });
 }
 exports.getTodoP = getTodoP;
-/*export class Todos {
-    public static createUser(id: string, text: string) {
-        console.log('creating user...');
-        (async function() {
-            const result = await Todo.create({id: id, text: text});
-            console.log('result is ' + JSON.stringify(result));
-            await Todo.find({}, (err, docs) => {
-                console.log('docs is ' + JSON.stringify(docs));
-        })
-    })();
-
-    }
-
-    public static getUser(id: string) {
-        console.log('finding user...');
-        (async function() {
-            await Todo.find({id: id}, (err, docs) => {
-                console.log('docs is ' + JSON.stringify(docs));
-            })
-            console.log('Find done');
-        })
-    }
-}*/
