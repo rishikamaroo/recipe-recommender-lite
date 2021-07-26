@@ -36,27 +36,3 @@ async function getTodoP(id: string): Promise<ITodo[]> {
 }
 
 export { Todo, createTodoP, getTodoP };
-
-/*export class Todos {
-    public static createUser(id: string, text: string) {
-        console.log('creating user...');
-        (async function() {
-            const result = await Todo.create({id: id, text: text});
-            console.log('result is ' + JSON.stringify(result));
-            await Todo.find({}, (err, docs) => {        
-                console.log('docs is ' + JSON.stringify(docs));
-        })
-    })();
-
-    }
-
-    public static getUser(id: string) {
-        console.log('finding user...');
-        (async function() {
-            await Todo.find({id: id}, (err, docs) => {        
-                console.log('docs is ' + JSON.stringify(docs));
-            })
-            console.log('Find done');
-        })
-    }
-}*/
