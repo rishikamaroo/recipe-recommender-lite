@@ -24,6 +24,13 @@ const RecipeSchema = new mongoose_1.default.Schema({
 const Recipe = mongoose_1.default.model('Recipe', RecipeSchema);
 exports.Recipe = Recipe;
 const logger = new logger_1.Logger();
+/**
+ * Creates a recipe
+ *
+ * @param id - recipe id
+ * @param text - recipe text
+ * @returns Promise<IRecipe>
+ */
 function createRecipeP(id, text) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('creating a recipe for id: ', id);
@@ -38,6 +45,12 @@ function createRecipeP(id, text) {
     });
 }
 exports.createRecipeP = createRecipeP;
+/**
+ * Gets recipe for given id
+ *
+ * @param id - recipe id
+ * @returns Promise<IRecipe>
+ */
 function getRecipeP(id) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('getting a recipe for id: ', id);
@@ -55,6 +68,13 @@ function getRecipeP(id) {
     });
 }
 exports.getRecipeP = getRecipeP;
+/**
+ * Patches recipe for given id
+ *
+ * @param id - recipe id
+ * @param text - recipe text
+ * @returns Promise<IRecipe>
+ */
 function patchRecipeP(id, text) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('patching text recipe for id & text: ', [id, text]);
@@ -73,6 +93,12 @@ function patchRecipeP(id, text) {
     });
 }
 exports.patchRecipeP = patchRecipeP;
+/**
+ * Deletes recipe for given id
+ *
+ * @param id - recipe id
+ * @returns Promise<void>
+ */
 function deleteRecipeP(id) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.warn('deleting a recipe for id: ', id);
@@ -83,7 +109,7 @@ function deleteRecipeP(id) {
             }
         }
         catch (err) {
-            logger.error('error while delete a Recipe ', err);
+            logger.error('error while deleting a recipe ', err);
             throw new error_1.CustomError(err.message, err.code);
         }
     });

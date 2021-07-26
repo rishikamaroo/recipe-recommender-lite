@@ -6,6 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { createRecipeP, deleteRecipeP, getRecipeP, patchRecipeP } from '../models/recipe';
 import { HTTPStatusCode } from '../constants';
 
+/**
+ * createRecipe is a request handler to create a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 export const createRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const text = (req.body as { text: string }).text;
@@ -19,6 +26,13 @@ export const createRecipe: RequestHandler = async (req, res, _next) => {
   }
 };
 
+/**
+ * getRecipe is a request handler to get a given recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 export const getRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;
@@ -29,6 +43,13 @@ export const getRecipe: RequestHandler = async (req, res, _next) => {
   }
 };
 
+/**
+ * patchRecipe is a request handler  to update a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 export const patchRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;
@@ -40,6 +61,13 @@ export const patchRecipe: RequestHandler = async (req, res, _next) => {
   }
 };
 
+/**
+ * deleteRecipe is a request handler to delete a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 export const deleteRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;

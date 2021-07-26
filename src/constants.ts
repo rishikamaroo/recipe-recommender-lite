@@ -1,5 +1,8 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
+/**
+ * Httpstatus code
+ */
 export const enum HTTPStatusCode {
   OK = 200,
   Created = 201,
@@ -12,6 +15,9 @@ export const enum HTTPStatusCode {
   ServiceUnavailable = 503,
 }
 
+/**
+ * Log color
+ */
 export const enum LogColor {
   Red = '\u001b[1;31m',
   Green = '\u001b[1;32m',
@@ -20,5 +26,4 @@ export const enum LogColor {
 }
 
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';
-
 export type RecipeTypes = 'veg' | 'non-veg' | 'vegan';

@@ -13,6 +13,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteRecipe = exports.patchRecipe = exports.getRecipe = exports.createRecipe = void 0;
 const uuid_1 = require("uuid");
 const recipe_1 = require("../models/recipe");
+/**
+ * createRecipe is a request handler to create a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 const createRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const text = req.body.text;
@@ -27,6 +34,13 @@ const createRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.createRecipe = createRecipe;
+/**
+ * getRecipe is a request handler to get a given recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 const getRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
@@ -38,6 +52,13 @@ const getRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.getRecipe = getRecipe;
+/**
+ * patchRecipe is a request handler  to update a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 const patchRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
@@ -50,6 +71,13 @@ const patchRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.patchRecipe = patchRecipe;
+/**
+ * deleteRecipe is a request handler to delete a recipe
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 const deleteRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;

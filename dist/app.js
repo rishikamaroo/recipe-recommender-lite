@@ -19,6 +19,9 @@ const body_parser_1 = require("body-parser");
 const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = require("./utils/logger");
 const config_1 = require("./config");
+/**
+ * Inits db
+ */
 function initDb() {
     return __awaiter(this, void 0, void 0, function* () {
         const logger = new logger_1.Logger();
@@ -34,6 +37,9 @@ function initDb() {
         mongoose_1.default.set('useFindAndModify', false);
     });
 }
+/**
+ * Creates app
+ */
 function createApp() {
     return __awaiter(this, void 0, void 0, function* () {
         yield initDb();
