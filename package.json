@@ -9,7 +9,8 @@
     "prettier": "prettier --write \"*/**/*.ts\"",
     "eslint": "eslint --config eslint.json \"*/**/*.ts\"",
     "lint": "npm run prettier && npm run eslint",
-    "compile": "tsc"
+    "compile": "tsc",
+    "copyright": "cd src && node copyright.ts"
   },
   "author": "",
   "license": "ISC",
