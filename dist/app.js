@@ -23,14 +23,12 @@ function initDb() {
         const logger = new logger_1.Logger();
         const db = mongoose_1.default.connection;
         db.on("error", console.error.bind(console, "connection error:"));
-        db.once("open", function () {
-            logger.debug("*** 1 connected to database");
-        });
+        db.once("open", function () { });
         mongoose_1.default.connect(`${config_1.MONGO_CONNECT_URL}/todo`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }, () => {
-            logger.debug("*** 2 connected to database");
+            logger.debug("*** connected to database");
         });
     });
 }

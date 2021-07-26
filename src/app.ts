@@ -11,9 +11,7 @@ async function initDb() {
 
   const db = mongoose.connection;
   db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", function () {
-    logger.debug("*** 1 connected to database");
-  });
+  db.once("open", function () {});
 
   mongoose.connect(
     `${MONGO_CONNECT_URL}/todo`,
@@ -22,7 +20,7 @@ async function initDb() {
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.debug("*** 2 connected to database");
+      logger.debug("*** connected to database");
     }
   );
 }
