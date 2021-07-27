@@ -1,5 +1,8 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
+/**
+ * Script to add copyright headers
+ */
 const command = 'copyright-header --fix --copyrightHolder "Rishika Maroo" --include ".ts"';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);

@@ -78,6 +78,9 @@ exports.getRecipeP = getRecipeP;
 function patchRecipeP(id, text) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('patching text recipe for id & text: ', [id, text]);
+        if (!text) {
+            throw new error_1.InvalidRequestError('cannot update recipe with null text');
+        }
         try {
             const updatedResult = yield Recipe.findOneAndUpdate({ id: id }, { $set: { text: text } }, { new: true });
             if (!updatedResult) {
