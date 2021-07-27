@@ -20,11 +20,10 @@ export interface IRecipe extends mongoose.Document {
   id: string;
   text: string;
   description?: string;
-  createdDate?: Date;
   suggestions?: {};
   type?: RecipeTypes;
-  lastUpdateDate?: Date;
   s3ImageAddress?: string;
+  calories?: number;
 }
 
 /**
@@ -33,4 +32,21 @@ export interface IRecipe extends mongoose.Document {
 export interface IException {
   code: number;
   message?: string;
+}
+
+/**
+ * Ctx interface
+ */
+export interface Ctx {
+  appRequestId: string;
+  user?: IUser;
+}
+
+/**
+ * Iuser interface
+ */
+export interface IUser {
+  id: string;
+  name: string;
+  createdAt: Date;
 }

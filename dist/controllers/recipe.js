@@ -10,9 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRecipe = exports.patchRecipe = exports.getRecipe = exports.createRecipe = void 0;
+exports.getRecipes = exports.deleteRecipe = exports.patchRecipe = exports.getRecipe = exports.createRecipe = void 0;
 const uuid_1 = require("uuid");
 const recipe_1 = require("../models/recipe");
+const response_1 = require("../utils/response");
 /**
  * createRecipe is a request handler to create a recipe
  *
@@ -24,13 +25,10 @@ const createRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, func
     try {
         const text = req.body.text;
         const result = yield recipe_1.createRecipeP(uuid_1.v4().toString(), text);
-        res.status(201 /* Created */).json({
-            message: 'Created the recipe.',
-            createRecipe: { id: result.id, text: result.text },
-        });
+        response_1.generateCreateSuccessResponse(res, result);
     }
     catch (err) {
-        res.status(500 /* InternalServerError */).json({ err: err });
+        response_1.generateInternalServerErrorResponse(res, err);
     }
 });
 exports.createRecipe = createRecipe;
@@ -45,10 +43,10 @@ const getRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, functio
     try {
         const id = req.params.id;
         const result = yield recipe_1.getRecipeP(id);
-        res.status(200 /* OK */).json({ Recipe: result });
+        response_1.generateSuccessResponse(res, result);
     }
     catch (err) {
-        res.status(404 /* NotFound */).json({ err: err });
+        response_1.generateNotFoundErrorResponse(res, err);
     }
 });
 exports.getRecipe = getRecipe;
@@ -64,10 +62,10 @@ const patchRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, funct
         const id = req.params.id;
         const text = req.body.text;
         const result = yield recipe_1.patchRecipeP(id, text);
-        res.status(200 /* OK */).json({ Recipe: result });
+        response_1.generateSuccessResponse(res, result);
     }
     catch (err) {
-        res.status(404 /* NotFound */).json({ err: err });
+        response_1.generateNotFoundErrorResponse(res, err);
     }
 });
 exports.patchRecipe = patchRecipe;
@@ -81,11 +79,28 @@ exports.patchRecipe = patchRecipe;
 const deleteRecipe = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
-        const result = yield recipe_1.deleteRecipeP(id);
-        res.status(200 /* OK */).json({ Recipe: result });
+        yield recipe_1.deleteRecipeP(id);
+        response_1.generateSuccessResponse(res);
     }
     catch (err) {
-        res.status(404 /* NotFound */).json({ err: err });
+        response_1.generateNotFoundErrorResponse(res, err);
     }
 });
 exports.deleteRecipe = deleteRecipe;
+/**
+ * getRecipes is a request handler to get all the recipies
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
+const getRecipes = (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield recipe_1.getRecipesP();
+        response_1.generateSuccessResponse(res, result);
+    }
+    catch (err) {
+        response_1.generateInternalServerErrorResponse(res, err);
+    }
+});
+exports.getRecipes = getRecipes;

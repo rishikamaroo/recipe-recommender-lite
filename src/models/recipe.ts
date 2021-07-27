@@ -4,13 +4,26 @@ import mongoose from 'mongoose';
 import { IRecipe } from '../types';
 import { Logger } from '../utils/logger';
 import { CustomError, InvalidRequestError, NotFoundError } from '../utils/error';
+import _ from 'lodash';
 
-const RecipeSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  text: { type: String, required: true },
-});
+const RecipeSchema = new mongoose.Schema(
+  {
+    id: { type: String, required: true },
+    text: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+    toObject: {
+      transform: function (_doc, ret, _option) {
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  },
+);
 
-const Recipe = mongoose.model<IRecipe>('Recipe', RecipeSchema);
+const Recipe = mongoose.model('Recipe', RecipeSchema);
 const logger = new Logger();
 
 /**
@@ -24,7 +37,7 @@ async function createRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('creating a recipe for id: ', id);
   try {
     const result = await Recipe.create({ id: id, text: text });
-    return result;
+    return result.toObject();
   } catch (err) {
     logger.error('error while creating a recipe ', err);
     throw new InvalidRequestError(err.message);
@@ -37,16 +50,33 @@ async function createRecipeP(id: string, text: string): Promise<IRecipe> {
  * @param id - recipe id
  * @returns Promise<IRecipe>
  */
-async function getRecipeP(id: string): Promise<IRecipe[]> {
+async function getRecipeP(id: string): Promise<IRecipe> {
   logger.debug('getting a recipe for id: ', id);
   try {
-    const result = await Recipe.find({ id: id });
-    if (result.length === 0) {
+    const results = await Recipe.find({ id: id });
+    if (results.length === 0) {
       throw new NotFoundError('no record found for id: ' + id);
     }
-    return result;
+    return _.map(results, (result) => result.toObject())[0];
   } catch (err) {
     logger.error('error while getting a recipe ', err);
+    throw new CustomError(err.message, err.code);
+  }
+}
+
+/**
+ * Gets all the recipes
+ *
+ * @param id - recipe id
+ * @returns Promise<IRecipe>
+ */
+async function getRecipesP(): Promise<IRecipe[]> {
+  logger.debug('getting all the recipies');
+  try {
+    const results = await Recipe.find({});
+    return _.map(results, (result) => result.toObject());
+  } catch (err) {
+    logger.error('error while getting recipes ', err);
     throw new CustomError(err.message, err.code);
   }
 }
@@ -74,7 +104,7 @@ async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
       throw new NotFoundError('no record found for id: ' + id);
     }
     logger.debug('the result is updated ', updatedResult);
-    return updatedResult;
+    return updatedResult.toObject();
   } catch (err) {
     logger.error('error while patching text to a Recipe ', err);
     throw new CustomError(err.message, err.code);
@@ -100,4 +130,4 @@ async function deleteRecipeP(id: string): Promise<void> {
   }
 }
 
-export { Recipe, createRecipeP, deleteRecipeP, getRecipeP, patchRecipeP };
+export { Recipe, createRecipeP, deleteRecipeP, getRecipeP, getRecipesP, patchRecipeP };

@@ -25,5 +25,12 @@ export const enum LogColor {
   White = '\u001b[0;37m',
 }
 
+export const HttpStatusMessage = {
+  Success: 'Success.',
+  InternalServerError: 'Internal server error.',
+  BadRequestError: 'Invalid request passed',
+  NotFoundError: 'No resource found.',
+};
+
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';
 export type RecipeTypes = 'veg' | 'non-veg' | 'vegan';

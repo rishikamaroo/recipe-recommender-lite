@@ -13,13 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.patchRecipeP = exports.getRecipeP = exports.deleteRecipeP = exports.createRecipeP = exports.Recipe = void 0;
+exports.patchRecipeP = exports.getRecipesP = exports.getRecipeP = exports.deleteRecipeP = exports.createRecipeP = exports.Recipe = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = require("../utils/logger");
 const error_1 = require("../utils/error");
+const lodash_1 = __importDefault(require("lodash"));
 const RecipeSchema = new mongoose_1.default.Schema({
     id: { type: String, required: true },
     text: { type: String, required: true },
+}, {
+    timestamps: true,
+    toObject: {
+        transform: function (_doc, ret, _option) {
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        },
+    },
 });
 const Recipe = mongoose_1.default.model('Recipe', RecipeSchema);
 exports.Recipe = Recipe;
@@ -36,7 +46,7 @@ function createRecipeP(id, text) {
         logger.debug('creating a recipe for id: ', id);
         try {
             const result = yield Recipe.create({ id: id, text: text });
-            return result;
+            return result.toObject();
         }
         catch (err) {
             logger.error('error while creating a recipe ', err);
@@ -55,11 +65,11 @@ function getRecipeP(id) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('getting a recipe for id: ', id);
         try {
-            const result = yield Recipe.find({ id: id });
-            if (result.length === 0) {
+            const results = yield Recipe.find({ id: id });
+            if (results.length === 0) {
                 throw new error_1.NotFoundError('no record found for id: ' + id);
             }
-            return result;
+            return lodash_1.default.map(results, (result) => result.toObject())[0];
         }
         catch (err) {
             logger.error('error while getting a recipe ', err);
@@ -68,6 +78,26 @@ function getRecipeP(id) {
     });
 }
 exports.getRecipeP = getRecipeP;
+/**
+ * Gets all the recipes
+ *
+ * @param id - recipe id
+ * @returns Promise<IRecipe>
+ */
+function getRecipesP() {
+    return __awaiter(this, void 0, void 0, function* () {
+        logger.debug('getting all the recipies');
+        try {
+            const results = yield Recipe.find({});
+            return lodash_1.default.map(results, (result) => result.toObject());
+        }
+        catch (err) {
+            logger.error('error while getting recipes ', err);
+            throw new error_1.CustomError(err.message, err.code);
+        }
+    });
+}
+exports.getRecipesP = getRecipesP;
 /**
  * Patches recipe for given id
  *
@@ -87,7 +117,7 @@ function patchRecipeP(id, text) {
                 throw new error_1.NotFoundError('no record found for id: ' + id);
             }
             logger.debug('the result is updated ', updatedResult);
-            return updatedResult;
+            return updatedResult.toObject();
         }
         catch (err) {
             logger.error('error while patching text to a Recipe ', err);

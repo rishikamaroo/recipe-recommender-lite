@@ -3,8 +3,20 @@
 import * as _ from 'lodash';
 import { RequestHandler } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { createRecipeP, deleteRecipeP, getRecipeP, patchRecipeP } from '../models/recipe';
-import { HTTPStatusCode } from '../constants';
+import {
+  createRecipeP,
+  deleteRecipeP,
+  getRecipeP,
+  getRecipesP,
+  patchRecipeP,
+} from '../models/recipe';
+import { IRecipe } from '../types';
+import {
+  generateCreateSuccessResponse,
+  generateInternalServerErrorResponse,
+  generateSuccessResponse,
+  generateNotFoundErrorResponse,
+} from '../utils/response';
 
 /**
  * createRecipe is a request handler to create a recipe
@@ -16,13 +28,10 @@ import { HTTPStatusCode } from '../constants';
 export const createRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const text = (req.body as { text: string }).text;
-    const result = await createRecipeP(uuidv4().toString(), text);
-    res.status(HTTPStatusCode.Created).json({
-      message: 'Created the recipe.',
-      createRecipe: { id: result.id, text: result.text },
-    });
+    const result: IRecipe = await createRecipeP(uuidv4().toString(), text);
+    generateCreateSuccessResponse(res, result);
   } catch (err) {
-    res.status(HTTPStatusCode.InternalServerError).json({ err: err });
+    generateInternalServerErrorResponse(res, err);
   }
 };
 
@@ -37,9 +46,9 @@ export const getRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;
     const result = await getRecipeP(id);
-    res.status(HTTPStatusCode.OK).json({ Recipe: result });
+    generateSuccessResponse(res, result);
   } catch (err) {
-    res.status(HTTPStatusCode.NotFound).json({ err: err });
+    generateNotFoundErrorResponse(res, err);
   }
 };
 
@@ -55,9 +64,9 @@ export const patchRecipe: RequestHandler = async (req, res, _next) => {
     const id = req.params.id;
     const text = (req.body as { text: string }).text;
     const result = await patchRecipeP(id, text);
-    res.status(HTTPStatusCode.OK).json({ Recipe: result });
+    generateSuccessResponse(res, result);
   } catch (err) {
-    res.status(HTTPStatusCode.NotFound).json({ err: err });
+    generateNotFoundErrorResponse(res, err);
   }
 };
 
@@ -71,9 +80,25 @@ export const patchRecipe: RequestHandler = async (req, res, _next) => {
 export const deleteRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;
-    const result = await deleteRecipeP(id);
-    res.status(HTTPStatusCode.OK).json({ Recipe: result });
+    await deleteRecipeP(id);
+    generateSuccessResponse(res);
   } catch (err) {
-    res.status(HTTPStatusCode.NotFound).json({ err: err });
+    generateNotFoundErrorResponse(res, err);
+  }
+};
+
+/**
+ * getRecipes is a request handler to get all the recipies
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
+export const getRecipes: RequestHandler = async (_req, res, _next) => {
+  try {
+    const result = await getRecipesP();
+    generateSuccessResponse(res, result);
+  } catch (err) {
+    generateInternalServerErrorResponse(res, err);
   }
 };
