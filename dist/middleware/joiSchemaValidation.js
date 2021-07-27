@@ -26,6 +26,7 @@ exports.validatePatchRequestBody = exports.validateGetRequestBody = exports.vali
 const joi_1 = __importDefault(require("@hapi/joi"));
 const lodash_1 = __importDefault(require("lodash"));
 const recipe = __importStar(require("../schemas/recipe"));
+const response_1 = require("../utils/response");
 const BadRequest = 400 /* BadRequest */;
 const validatePostRequestBody = (req, res, next) => {
     try {
@@ -34,13 +35,7 @@ const validatePostRequestBody = (req, res, next) => {
     }
     catch (err) {
         const errMessage = lodash_1.default.get(err, 'details[0].message');
-        if (!lodash_1.default.isEmpty(errMessage)) {
-            res.status(BadRequest).json({
-                status: BadRequest,
-                message: 'Invalid fields',
-                body: [{ err: errMessage, path: 'recipe' }],
-            });
-        }
+        response_1.generateBadRequestErrorResponse(res, errMessage || err);
     }
 };
 exports.validatePostRequestBody = validatePostRequestBody;
@@ -51,13 +46,7 @@ const validateGetRequestBody = (req, res, next) => {
     }
     catch (err) {
         const errMessage = lodash_1.default.get(err, 'details[0].message');
-        if (!lodash_1.default.isEmpty(errMessage)) {
-            res.status(BadRequest).json({
-                status: BadRequest,
-                message: 'Invalid fields',
-                body: [{ err: errMessage, path: 'recipe' }],
-            });
-        }
+        response_1.generateBadRequestErrorResponse(res, errMessage || err);
     }
 };
 exports.validateGetRequestBody = validateGetRequestBody;
@@ -68,13 +57,7 @@ const validatePatchRequestBody = (req, res, next) => {
     }
     catch (err) {
         const errMessage = lodash_1.default.get(err, 'details[0].message');
-        if (!lodash_1.default.isEmpty(errMessage)) {
-            res.status(BadRequest).json({
-                status: BadRequest,
-                message: 'Invalid fields',
-                body: [{ err: errMessage, path: 'recipe' }],
-            });
-        }
+        response_1.generateBadRequestErrorResponse(res, errMessage || err);
     }
 };
 exports.validatePatchRequestBody = validatePatchRequestBody;

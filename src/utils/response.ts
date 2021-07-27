@@ -32,3 +32,11 @@ export const generateNotFoundErrorResponse = (res: any, err: any) => {
     body: [{ err: err }],
   });
 };
+
+export const generateBadRequestErrorResponse = (res: any, err: any) => {
+  res.status(HTTPStatusCode.BadRequest).json({
+    status: HTTPStatusCode.BadRequest,
+    message: HttpStatusMessage.BadRequestError,
+    body: [{ err: err }],
+  });
+};

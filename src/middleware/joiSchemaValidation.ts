@@ -2,6 +2,7 @@ import Joi from '@hapi/joi';
 import _ from 'lodash';
 import { HTTPStatusCode } from '../constants';
 import * as recipe from '../schemas/recipe';
+import { generateBadRequestErrorResponse } from '../utils/response';
 
 const BadRequest = HTTPStatusCode.BadRequest;
 export const validatePostRequestBody = (req: any, res: any, next: any) => {
@@ -10,13 +11,7 @@ export const validatePostRequestBody = (req: any, res: any, next: any) => {
     return next();
   } catch (err) {
     const errMessage = _.get(err, 'details[0].message');
-    if (!_.isEmpty(errMessage)) {
-      res.status(BadRequest).json({
-        status: BadRequest,
-        message: 'Invalid fields',
-        body: [{ err: errMessage, path: 'recipe' }],
-      });
-    }
+    generateBadRequestErrorResponse(res, errMessage || err);
   }
 };
 
@@ -26,13 +21,7 @@ export const validateGetRequestBody = (req: any, res: any, next: any) => {
     return next();
   } catch (err) {
     const errMessage = _.get(err, 'details[0].message');
-    if (!_.isEmpty(errMessage)) {
-      res.status(BadRequest).json({
-        status: BadRequest,
-        message: 'Invalid fields',
-        body: [{ err: errMessage, path: 'recipe' }],
-      });
-    }
+    generateBadRequestErrorResponse(res, errMessage || err);
   }
 };
 
@@ -42,12 +31,6 @@ export const validatePatchRequestBody = (req: any, res: any, next: any) => {
     return next();
   } catch (err) {
     const errMessage = _.get(err, 'details[0].message');
-    if (!_.isEmpty(errMessage)) {
-      res.status(BadRequest).json({
-        status: BadRequest,
-        message: 'Invalid fields',
-        body: [{ err: errMessage, path: 'recipe' }],
-      });
-    }
+    generateBadRequestErrorResponse(res, errMessage || err);
   }
 };

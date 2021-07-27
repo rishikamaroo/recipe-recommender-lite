@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateNotFoundErrorResponse = exports.generateInternalServerErrorResponse = exports.generateCreateSuccessResponse = exports.generateSuccessResponse = void 0;
+exports.generateBadRequestErrorResponse = exports.generateNotFoundErrorResponse = exports.generateInternalServerErrorResponse = exports.generateCreateSuccessResponse = exports.generateSuccessResponse = void 0;
 const constants_1 = require("../constants");
 const generateSuccessResponse = (res, result) => {
     res.status(200 /* OK */).json({
@@ -34,3 +34,11 @@ const generateNotFoundErrorResponse = (res, err) => {
     });
 };
 exports.generateNotFoundErrorResponse = generateNotFoundErrorResponse;
+const generateBadRequestErrorResponse = (res, err) => {
+    res.status(400 /* BadRequest */).json({
+        status: 400 /* BadRequest */,
+        message: constants_1.HttpStatusMessage.BadRequestError,
+        body: [{ err: err }],
+    });
+};
+exports.generateBadRequestErrorResponse = generateBadRequestErrorResponse;
