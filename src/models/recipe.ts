@@ -60,6 +60,10 @@ async function getRecipeP(id: string): Promise<IRecipe[]> {
  */
 async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('patching text recipe for id & text: ', [id, text]);
+  if (!text) {
+    throw new InvalidRequestError('cannot update recipe with null text');
+  }
+
   try {
     const updatedResult = await Recipe.findOneAndUpdate(
       { id: id },
