@@ -1,7 +1,7 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
 /**
- * Httpstatus code
+ * Http status codes
  */
 export const enum HTTPStatusCode {
   OK = 200,
@@ -16,7 +16,7 @@ export const enum HTTPStatusCode {
 }
 
 /**
- * Log color
+ * Log colors
  */
 export const enum LogColor {
   Red = '\u001b[1;31m',
@@ -25,6 +25,9 @@ export const enum LogColor {
   White = '\u001b[0;37m',
 }
 
+/**
+ * Http status messages
+ */
 export const HttpStatusMessage = {
   Success: 'Success.',
   InternalServerError: 'Internal server error.',

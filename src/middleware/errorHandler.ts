@@ -3,6 +3,14 @@ import _ from 'lodash';
 import { HTTPStatusCode } from '../constants';
 import { Logger } from '../utils/logger';
 
+/**
+ * Error handler function
+ *
+ * @param err - Error
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 export function errorHandler(
   err: Error,
   req: express.Request,

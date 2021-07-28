@@ -28,6 +28,13 @@ const lodash_1 = __importDefault(require("lodash"));
 const recipe = __importStar(require("../schemas/recipe"));
 const response_1 = require("../utils/response");
 const BadRequest = 400 /* BadRequest */;
+/**
+ * Post request body validation function
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param next - next function
+ */
 const validatePostRequestBody = (req, res, next) => {
     try {
         joi_1.default.assert(req.body, recipe.RECIPE_POST_REQUEST_SCHEMA, { convert: false });
@@ -39,6 +46,13 @@ const validatePostRequestBody = (req, res, next) => {
     }
 };
 exports.validatePostRequestBody = validatePostRequestBody;
+/**
+ * Get request body validation function
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param next - next function
+ */
 const validateGetRequestBody = (req, res, next) => {
     try {
         joi_1.default.assert(req.body, recipe.RECIPE_GET_REQUEST_SCHEMA, { convert: false });
@@ -50,6 +64,13 @@ const validateGetRequestBody = (req, res, next) => {
     }
 };
 exports.validateGetRequestBody = validateGetRequestBody;
+/**
+ * Patch request body validation function
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param next - next function
+ */
 const validatePatchRequestBody = (req, res, next) => {
     try {
         joi_1.default.assert(req.body, recipe.RECIPE_PATCH_REQUEST_SCHEMA, { convert: false });

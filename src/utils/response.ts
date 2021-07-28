@@ -1,6 +1,12 @@
 import { HTTPStatusCode, HttpStatusMessage } from '../constants';
 import { IRecipe } from '../types';
 
+/**
+ * Function to generate get successfull response
+ *
+ * @param res - Result param
+ * @param result - IRecipe | IRecipe[] param
+ */
 export const generateSuccessResponse = (res: any, result?: IRecipe | IRecipe[]) => {
   res.status(HTTPStatusCode.OK).json({
     status: HTTPStatusCode.OK,
@@ -9,6 +15,12 @@ export const generateSuccessResponse = (res: any, result?: IRecipe | IRecipe[]) 
   });
 };
 
+/**
+ * Function to generate create successfull response
+ *
+ * @param res - Result param
+ * @param result - IRecipe param
+ */
 export const generateCreateSuccessResponse = (res: any, result: IRecipe) => {
   res.status(HTTPStatusCode.Created).json({
     status: HTTPStatusCode.Created,
@@ -17,6 +29,12 @@ export const generateCreateSuccessResponse = (res: any, result: IRecipe) => {
   });
 };
 
+/**
+ * Function to generate internal server error response
+ *
+ * @param res - Result param
+ * @param err - Error
+ */
 export const generateInternalServerErrorResponse = (res: any, err: any) => {
   res.status(HTTPStatusCode.InternalServerError).json({
     status: HTTPStatusCode.InternalServerError,
@@ -25,6 +43,12 @@ export const generateInternalServerErrorResponse = (res: any, err: any) => {
   });
 };
 
+/**
+ * Function to generate not found error response
+ *
+ * @param res - Result param
+ * @param err - Error
+ */
 export const generateNotFoundErrorResponse = (res: any, err: any) => {
   res.status(HTTPStatusCode.NotFound).json({
     status: HTTPStatusCode.NotFound,
@@ -33,6 +57,12 @@ export const generateNotFoundErrorResponse = (res: any, err: any) => {
   });
 };
 
+/**
+ * Function to generate bad request error response
+ *
+ * @param res - Result param
+ * @param err - Error
+ */
 export const generateBadRequestErrorResponse = (res: any, err: any) => {
   res.status(HTTPStatusCode.BadRequest).json({
     status: HTTPStatusCode.BadRequest,
