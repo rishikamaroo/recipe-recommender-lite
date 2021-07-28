@@ -1,19 +1,30 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
 import cors from 'cors';
+import pg from 'pg';
 import express from 'express';
 import recipeRoutes from './routes/recipe';
 import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
 import { Logger } from './utils/logger';
-import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT } from './config';
+import {
+  MONGO_CONNECT_URL,
+  MONGO_DB_NAME,
+  PORT,
+  POSTGRES_CONNECT_URL,
+  POSTGRES_DB_NAME,
+} from './config';
 import { errorHandler } from './middleware/errorHandler';
 
 /**
  * Initializes db connections
  */
 async function initDb(): Promise<void> {
+  const psqConnectionString = `${POSTGRES_CONNECT_URL}/${POSTGRES_DB_NAME}`;
+  const client = new pg.Client(psqConnectionString);
+  client.connect();
+
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {});
