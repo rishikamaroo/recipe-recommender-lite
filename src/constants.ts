@@ -33,4 +33,3 @@ export const HttpStatusMessage = {
 };
 
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';
-export type RecipeTypes = 'veg' | 'non-veg' | 'vegan';
