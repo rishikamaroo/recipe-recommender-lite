@@ -21,6 +21,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RECIPE_PATCH_REQUEST_SCHEMA = exports.RECIPE_GET_REQUEST_SCHEMA = exports.RECIPE_POST_REQUEST_SCHEMA = void 0;
 const Joi = __importStar(require("@hapi/joi"));
+/**
+ * RECIPE_POST_REQUEST_SCHEMA
+ */
 exports.RECIPE_POST_REQUEST_SCHEMA = Joi.object().keys({
     text: Joi.string().required(),
     description: Joi.string(),
@@ -29,6 +32,9 @@ exports.RECIPE_POST_REQUEST_SCHEMA = Joi.object().keys({
     s3ImageAddress: Joi.string(),
     calories: Joi.number(),
 });
+/**
+ * RECIPE_GET_REQUEST_SCHEMA
+ */
 exports.RECIPE_GET_REQUEST_SCHEMA = Joi.object().keys({
     text: Joi.string(),
     description: Joi.string(),
@@ -37,6 +43,9 @@ exports.RECIPE_GET_REQUEST_SCHEMA = Joi.object().keys({
     s3ImageAddress: Joi.string(),
     calories: Joi.number(),
 });
+/**
+ * RECIPE_PATCH_REQUEST_SCHEMA
+ */
 exports.RECIPE_PATCH_REQUEST_SCHEMA = Joi.object().keys({
     text: Joi.string().required(),
     description: Joi.string(),

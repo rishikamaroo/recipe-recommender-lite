@@ -6,6 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorHandler = void 0;
 const lodash_1 = __importDefault(require("lodash"));
 const logger_1 = require("../utils/logger");
+/**
+ * Error handler function
+ *
+ * @param err - Error
+ * @param req - Request param
+ * @param res - Response param
+ * @param _next - next function
+ */
 function errorHandler(err, req, res, _next) {
     const logger = new logger_1.Logger();
     logger.error('API request failed!', err);
