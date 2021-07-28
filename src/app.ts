@@ -1,31 +1,31 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
-import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import express from 'express';
 import recipeRoutes from './routes/recipe';
 import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
 import { Logger } from './utils/logger';
-import { MONGO_CONNECT_URL, PORT } from './config';
+import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT } from './config';
+import { errorHandler } from './middleware/errorHandler';
 
 /**
  * Initializes db connections
  */
-async function initDb() {
-  const logger = new Logger();
-
+async function initDb(): Promise<void> {
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {});
 
   mongoose.connect(
-    `${MONGO_CONNECT_URL}/recipe`,
+    `${MONGO_CONNECT_URL}/${MONGO_DB_NAME}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.info('*** Connected to database');
+      logger.info('*** Connected to database.');
     },
   );
   mongoose.set('useFindAndModify', false);
@@ -37,12 +37,27 @@ async function initDb() {
 async function createApp() {
   await initDb();
   const app = express();
+  app.use(cors());
   app.use(json());
-  app.use('/recipe', recipeRoutes);
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(HTTPStatusCode.InternalServerError).json({ message: err.message });
+  app.use('/api/v1/recipe', recipeRoutes);
+  app.use(errorHandler as express.ErrorRequestHandler);
+  app.get('/', (_req, res, _next) => {
+    return res.status(HTTPStatusCode.OK).json({
+      status: 'ok',
+      version: '1.0.0',
+    });
   });
-  app.listen(PORT);
+  app.listen(PORT, () => {
+    logger.info(`*** Server listening to port: ${PORT}...`);
+  });
+
+  // (TODO) add application level middleware, ex:
+  // app.use(diagnosticsMiddleware)
+  // app.use(datadogClientMiddleware)
+
+  // (TODO) add sub-stack level middleware, ex:
+  // app.get('/status/sla', statusMiddleware)
 }
 
 createApp();
+const logger = new Logger();
