@@ -59,7 +59,7 @@ export const validateUserPostRequestBody = (req: any, res: any, next: any) => {
 };
 
 /**
- * Patch recipe request body validation function
+ * Patch user request body validation function
  *
  * @param req - Request param
  * @param res - Response param
@@ -68,6 +68,23 @@ export const validateUserPostRequestBody = (req: any, res: any, next: any) => {
 export const validateUserPatchRequestBody = (req: any, res: any, next: any) => {
   try {
     Joi.assert(req.body, user.USER_PATCH_REQUEST_SCHEMA, { convert: false });
+    return next();
+  } catch (err) {
+    const errMessage = _.get(err, 'details[0].message');
+    generateBadRequestErrorResponse(res, errMessage || err);
+  }
+};
+
+/**
+ * Get user login request body validation function
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param next - next function
+ */
+export const validateUserLoginRequestBody = (req: any, res: any, next: any) => {
+  try {
+    Joi.assert(req.body, user.USER_LOGIN_GET_REQUEST_SCHEMA, { convert: false });
     return next();
   } catch (err) {
     const errMessage = _.get(err, 'details[0].message');

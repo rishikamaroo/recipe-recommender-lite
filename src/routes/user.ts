@@ -6,11 +6,12 @@ import {
   validateUserPatchRequestBody,
   validateUserPostRequestBody,
 } from '../middleware/joiSchemaValidation';
+import { validateToken } from '../middleware/tokenValidation';
 
 const router = Router();
 
 router.post('/', validateUserPostRequestBody, signup);
-router.get('/:id', getUser);
+router.get('/:id', validateToken, getUser);
 router.patch('/:id', validateUserPatchRequestBody, patchUser);
 
 export default router;

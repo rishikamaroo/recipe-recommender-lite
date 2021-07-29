@@ -4,7 +4,7 @@ import { HTTPStatusCode, HttpStatusMessage } from '../constants';
  * Function to generate get successfull response
  *
  * @param res - Result param
- * @param result - IRecipe | IRecipe[] param
+ * @param result - any
  */
 export const generateSuccessResponse = (res: any, result?: any) => {
   res.status(HTTPStatusCode.OK).json({
@@ -18,7 +18,7 @@ export const generateSuccessResponse = (res: any, result?: any) => {
  * Function to generate create successfull response
  *
  * @param res - Result param
- * @param result - IRecipe param
+ * @param result - any
  */
 export const generateCreateSuccessResponse = (res: any, result?: any) => {
   res.status(HTTPStatusCode.Created).json({
@@ -67,5 +67,33 @@ export const generateBadRequestErrorResponse = (res: any, err: any) => {
     status: HTTPStatusCode.BadRequest,
     message: HttpStatusMessage.BadRequestError,
     body: [{ err: err }],
+  });
+};
+
+/**
+ * Function to generate login auth failure response
+ *
+ * @param res - Result param
+ * @param result - any
+ */
+export const generateAuthFailureResponse = (res: any, result?: any) => {
+  res.status(HTTPStatusCode.Unauthorized).json({
+    status: HTTPStatusCode.Unauthorized,
+    message: HttpStatusMessage.UnAuthorizedError,
+    body: result ? [result] : [],
+  });
+};
+
+/**
+ * Function to generate login auth failure response
+ *
+ * @param res - Result param
+ * @param result - any
+ */
+export const generateInvalidTokenResponse = (res: any, result?: any) => {
+  res.status(HTTPStatusCode.Unauthorized).json({
+    status: HTTPStatusCode.Unauthorized,
+    message: HttpStatusMessage.InvalidTokenCredentials,
+    body: result ? [result] : [],
   });
 };

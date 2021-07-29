@@ -33,7 +33,11 @@ export const HttpStatusMessage = {
   InternalServerError: 'Internal server error',
   BadRequestError: 'Invalid request passed',
   NotFoundError: 'No resource found',
+  UnAuthorizedError: 'Invalid login credentials',
+  InvalidTokenCredentials: 'Invalid token credentials',
 };
 
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';
 export type RecipeTypes = 'veg' | 'non-veg' | 'vegan';
+
+export const HASH_ROUNDS = 12;

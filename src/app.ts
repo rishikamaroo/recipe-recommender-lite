@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import recipeRoutes from './routes/recipe';
 import userRoutes from './routes/user';
+import authRoutes from './routes/auth';
 import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
@@ -29,7 +30,7 @@ async function initDb(): Promise<void> {
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.info('*** Connected to mongo database.');
+      logger.info('*** Connected to Database.');
     },
   );
   mongoose.set('useFindAndModify', false);
@@ -45,6 +46,7 @@ async function createApp() {
   app.use(json());
   app.use('/api/v1/recipe', recipeRoutes);
   app.use('/api/v1/user', userRoutes);
+  app.use('/api/v1/login', authRoutes);
   app.use(errorHandler as express.ErrorRequestHandler);
   app.get('/', (_req, res, _next) => {
     return res.status(HTTPStatusCode.OK).json({
@@ -55,13 +57,6 @@ async function createApp() {
   app.listen(PORT, () => {
     logger.info(`*** Server listening to port: ${PORT}...`);
   });
-
-  // (TODO) add application level middleware, ex:
-  // app.use(diagnosticsMiddleware)
-  // app.use(datadogClientMiddleware)
-
-  // (TODO) add sub-stack level middleware, ex:
-  // app.get('/status/sla', statusMiddleware)
 }
 
 createApp();

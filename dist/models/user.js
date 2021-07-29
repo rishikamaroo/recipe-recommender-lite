@@ -28,14 +28,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserP = exports.getUserP = exports.createUserP = void 0;
+exports.getUserLoginP = exports.updateUserP = exports.getUserP = exports.createUserP = void 0;
 const bcrypt = __importStar(require("bcrypt"));
 const app_1 = require("../app");
+const constants_1 = require("../constants");
 const user_1 = require("../entities/user");
 const error_1 = require("../utils/error");
 const logger_1 = require("../utils/logger");
-const HASH_ROUNDS = 6;
 const logger = new logger_1.Logger();
+/**
+ * Creates a User
+ *
+ * @param user - IUser obj
+ * @returns Promise string
+ */
 function createUserP(user) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('creating a user for id: ', user.id);
@@ -61,6 +67,12 @@ function createUserP(user) {
     });
 }
 exports.createUserP = createUserP;
+/**
+ * Gets user fields
+ *
+ * @param userId - string
+ * @returns Promise UserAccount | undefined
+ */
 function getUserP(userId) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('getting a user for id: ', userId);
@@ -80,13 +92,20 @@ function getUserP(userId) {
     });
 }
 exports.getUserP = getUserP;
+/**
+ * Updates user allowed fields
+ *
+ * @param userId - string
+ * @param username - string
+ * @returns Promise UserAccount | undefined
+ */
 function updateUserP(userId, username) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('updating a user for id: ', userId);
         try {
             const result = yield getUserP(userId);
             if (!result) {
-                throw new error_1.NotFoundError('No resource found');
+                throw new error_1.NotFoundError(constants_1.HttpStatusMessage.NotFoundError);
             }
             result.username = username;
             yield app_1.connection.then((connection) => __awaiter(this, void 0, void 0, function* () {
@@ -101,13 +120,46 @@ function updateUserP(userId, username) {
     });
 }
 exports.updateUserP = updateUserP;
+/**
+ * Gets user login response
+ *
+ * @param username - string
+ * @param password - string
+ * @returns Promise<boolean>
+ */
+function getUserLoginP(username, password) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const repository = (yield app_1.connection).getRepository(user_1.UserAccount);
+            const field = yield repository.findOne({ select: ['password'], where: { username: username } });
+            return yield compareIt(password, field.password);
+        }
+        catch (err) {
+            throw new error_1.InvalidRequestError(err.message);
+        }
+    });
+}
+exports.getUserLoginP = getUserLoginP;
+/**
+ * Hashes password
+ *
+ * @param password - string
+ * @returns string
+ */
 function hashIt(password) {
     return __awaiter(this, void 0, void 0, function* () {
-        const salt = yield bcrypt.genSalt(HASH_ROUNDS);
+        const salt = yield bcrypt.genSalt(constants_1.HASH_ROUNDS);
         const hashed = yield bcrypt.hash(password, salt);
         return hashed;
     });
 }
+/**
+ * Compares hashed and incoming password
+ *
+ * @param password - string
+ * @param hashedPassword - string
+ * @returns Promise<boolean>
+ */
 function compareIt(password, hashedPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         const validPassword = yield bcrypt.compare(password, hashedPassword);
