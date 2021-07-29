@@ -1,6 +1,5 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
-import * as _ from 'lodash';
 import { RequestHandler } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -62,7 +61,7 @@ export const getRecipe: RequestHandler = async (req, res, _next) => {
 export const patchRecipe: RequestHandler = async (req, res, _next) => {
   try {
     const id = req.params.id;
-    const text = (req.body as { text: string }).text;
+    const text = req.body.text;
     const result = await patchRecipeP(id, text);
     generateSuccessResponse(res, result);
   } catch (err) {

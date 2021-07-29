@@ -12,7 +12,7 @@ const generateSuccessResponse = (res, result) => {
     res.status(200 /* OK */).json({
         status: 200 /* OK */,
         message: constants_1.HttpStatusMessage.Success,
-        body: [result],
+        body: result ? [result] : [],
     });
 };
 exports.generateSuccessResponse = generateSuccessResponse;
@@ -26,7 +26,7 @@ const generateCreateSuccessResponse = (res, result) => {
     res.status(201 /* Created */).json({
         status: 201 /* Created */,
         message: constants_1.HttpStatusMessage.Success,
-        body: [result],
+        body: result ? [result] : [],
     });
 };
 exports.generateCreateSuccessResponse = generateCreateSuccessResponse;

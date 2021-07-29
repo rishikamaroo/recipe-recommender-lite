@@ -1,5 +1,4 @@
 import { HTTPStatusCode, HttpStatusMessage } from '../constants';
-import { IRecipe } from '../types';
 
 /**
  * Function to generate get successfull response
@@ -7,11 +6,11 @@ import { IRecipe } from '../types';
  * @param res - Result param
  * @param result - IRecipe | IRecipe[] param
  */
-export const generateSuccessResponse = (res: any, result?: IRecipe | IRecipe[]) => {
+export const generateSuccessResponse = (res: any, result?: any) => {
   res.status(HTTPStatusCode.OK).json({
     status: HTTPStatusCode.OK,
     message: HttpStatusMessage.Success,
-    body: [result],
+    body: result ? [result] : [],
   });
 };
 
@@ -21,11 +20,11 @@ export const generateSuccessResponse = (res: any, result?: IRecipe | IRecipe[]) 
  * @param res - Result param
  * @param result - IRecipe param
  */
-export const generateCreateSuccessResponse = (res: any, result: IRecipe) => {
+export const generateCreateSuccessResponse = (res: any, result?: any) => {
   res.status(HTTPStatusCode.Created).json({
     status: HTTPStatusCode.Created,
     message: HttpStatusMessage.Success,
-    body: [result],
+    body: result ? [result] : [],
   });
 };
 

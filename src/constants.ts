@@ -29,10 +29,10 @@ export const enum LogColor {
  * Http status messages
  */
 export const HttpStatusMessage = {
-  Success: 'Success.',
-  InternalServerError: 'Internal server error.',
+  Success: 'Success',
+  InternalServerError: 'Internal server error',
   BadRequestError: 'Invalid request passed',
-  NotFoundError: 'No resource found.',
+  NotFoundError: 'No resource found',
 };
 
 export type LogTypes = 'debug' | 'info' | 'warn' | 'error';

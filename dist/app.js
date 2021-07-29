@@ -13,23 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.connection = void 0;
 const cors_1 = __importDefault(require("cors"));
-const pg_1 = __importDefault(require("pg"));
 const express_1 = __importDefault(require("express"));
 const recipe_1 = __importDefault(require("./routes/recipe"));
+const user_1 = __importDefault(require("./routes/user"));
 const body_parser_1 = require("body-parser");
 const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = require("./utils/logger");
 const config_1 = require("./config");
 const errorHandler_1 = require("./middleware/errorHandler");
+const typeorm_1 = require("typeorm");
+exports.connection = typeorm_1.createConnection(config_1.TYPEORM_CONFIG);
 /**
  * Initializes db connections
  */
 function initDb() {
     return __awaiter(this, void 0, void 0, function* () {
-        const psqConnectionString = `${config_1.POSTGRES_CONNECT_URL}/${config_1.POSTGRES_DB_NAME}`;
-        const client = new pg_1.default.Client(psqConnectionString);
-        client.connect();
         const db = mongoose_1.default.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function () { });
@@ -37,7 +37,7 @@ function initDb() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }, () => {
-            logger.info('*** Connected to database.');
+            logger.info('*** Connected to mongo database.');
         });
         mongoose_1.default.set('useFindAndModify', false);
     });
@@ -52,6 +52,7 @@ function createApp() {
         app.use(cors_1.default());
         app.use(body_parser_1.json());
         app.use('/api/v1/recipe', recipe_1.default);
+        app.use('/api/v1/user', user_1.default);
         app.use(errorHandler_1.errorHandler);
         app.get('/', (_req, res, _next) => {
             return res.status(200 /* OK */).json({

@@ -6,8 +6,8 @@ exports.HttpStatusMessage = void 0;
  * Http status messages
  */
 exports.HttpStatusMessage = {
-    Success: 'Success.',
-    InternalServerError: 'Internal server error.',
+    Success: 'Success',
+    InternalServerError: 'Internal server error',
     BadRequestError: 'Invalid request passed',
-    NotFoundError: 'No resource found.',
+    NotFoundError: 'No resource found',
 };

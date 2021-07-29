@@ -27,6 +27,19 @@ export interface IRecipe extends mongoose.Document {
 }
 
 /**
+ * IUser interface
+ */
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+  createdAt: Date;
+  phoneNumber: number;
+}
+
+/**
  * Iexception interface
  */
 export interface IException {
@@ -40,13 +53,4 @@ export interface IException {
 export interface Ctx {
   appRequestId: string;
   user?: IUser;
-}
-
-/**
- * Iuser interface
- */
-export interface IUser {
-  id: string;
-  name: string;
-  createdAt: Date;
 }

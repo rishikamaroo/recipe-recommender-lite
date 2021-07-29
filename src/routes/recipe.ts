@@ -9,16 +9,16 @@ import {
   getRecipes,
 } from '../controllers/recipe';
 import {
-  validateGetRequestBody,
-  validatePatchRequestBody,
-  validatePostRequestBody,
+  validateRecipeGetRequestBody,
+  validateRecipePatchRequestBody,
+  validateRecipePostRequestBody,
 } from '../middleware/joiSchemaValidation';
 
 const router = Router();
 
-router.get('/:id', validateGetRequestBody, getRecipe);
-router.post('/', validatePostRequestBody, createRecipe);
-router.patch('/:id', validatePatchRequestBody, patchRecipe);
+router.get('/:id', validateRecipeGetRequestBody, getRecipe);
+router.post('/', validateRecipePostRequestBody, createRecipe);
+router.patch('/:id', validateRecipePatchRequestBody, patchRecipe);
 router.get('/', getRecipes);
 router.delete('/:id', deleteRecipe);
 
