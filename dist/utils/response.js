@@ -1,4 +1,5 @@
 "use strict";
+/* Copyright (c) 2021 Rishika Maroo */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateInvalidTokenResponse = exports.generateAuthFailureResponse = exports.generateBadRequestErrorResponse = exports.generateNotFoundErrorResponse = exports.generateInternalServerErrorResponse = exports.generateCreateSuccessResponse = exports.generateSuccessResponse = void 0;
 const constants_1 = require("../constants");

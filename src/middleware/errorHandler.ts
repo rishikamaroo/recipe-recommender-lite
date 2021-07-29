@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import * as express from 'express';
 import _ from 'lodash';
 import { HTTPStatusCode } from '../constants';

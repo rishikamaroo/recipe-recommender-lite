@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import Joi from '@hapi/joi';
 import _ from 'lodash';
 import { HTTPStatusCode } from '../constants';

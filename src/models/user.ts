@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import * as bcrypt from 'bcrypt';
 import { connection } from '../app';
 import { HASH_ROUNDS, HttpStatusMessage } from '../constants';

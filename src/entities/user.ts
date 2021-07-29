@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()

@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import * as Joi from '@hapi/joi';
 
 /**

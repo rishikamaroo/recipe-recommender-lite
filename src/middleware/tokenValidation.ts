@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import { CustomError } from '../utils/error';
 import jwt from 'jsonwebtoken';
 import { SECRET_KEY } from '../config';
