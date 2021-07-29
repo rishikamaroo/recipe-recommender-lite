@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateBadRequestErrorResponse = exports.generateNotFoundErrorResponse = exports.generateInternalServerErrorResponse = exports.generateCreateSuccessResponse = exports.generateSuccessResponse = void 0;
+exports.generateInvalidTokenResponse = exports.generateAuthFailureResponse = exports.generateBadRequestErrorResponse = exports.generateNotFoundErrorResponse = exports.generateInternalServerErrorResponse = exports.generateCreateSuccessResponse = exports.generateSuccessResponse = void 0;
 const constants_1 = require("../constants");
 /**
  * Function to generate get successfull response
  *
  * @param res - Result param
- * @param result - IRecipe | IRecipe[] param
+ * @param result - any
  */
 const generateSuccessResponse = (res, result) => {
     res.status(200 /* OK */).json({
@@ -20,7 +20,7 @@ exports.generateSuccessResponse = generateSuccessResponse;
  * Function to generate create successfull response
  *
  * @param res - Result param
- * @param result - IRecipe param
+ * @param result - any
  */
 const generateCreateSuccessResponse = (res, result) => {
     res.status(201 /* Created */).json({
@@ -72,3 +72,31 @@ const generateBadRequestErrorResponse = (res, err) => {
     });
 };
 exports.generateBadRequestErrorResponse = generateBadRequestErrorResponse;
+/**
+ * Function to generate login auth failure response
+ *
+ * @param res - Result param
+ * @param result - any
+ */
+const generateAuthFailureResponse = (res, result) => {
+    res.status(401 /* Unauthorized */).json({
+        status: 401 /* Unauthorized */,
+        message: constants_1.HttpStatusMessage.UnAuthorizedError,
+        body: result ? [result] : [],
+    });
+};
+exports.generateAuthFailureResponse = generateAuthFailureResponse;
+/**
+ * Function to generate login auth failure response
+ *
+ * @param res - Result param
+ * @param result - any
+ */
+const generateInvalidTokenResponse = (res, result) => {
+    res.status(401 /* Unauthorized */).json({
+        status: 401 /* Unauthorized */,
+        message: constants_1.HttpStatusMessage.InvalidTokenCredentials,
+        body: result ? [result] : [],
+    });
+};
+exports.generateInvalidTokenResponse = generateInvalidTokenResponse;

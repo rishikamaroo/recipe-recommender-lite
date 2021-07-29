@@ -30,6 +30,7 @@ export const POSTGRES_CONNECT_URL =
  * SERVER
  */
 export const PORT = process.env.PORT || 3000;
+export const SECRET_KEY = process.env.SECRET_KEY || 'my-secret-key';
 
 /**
  * TYPEORM

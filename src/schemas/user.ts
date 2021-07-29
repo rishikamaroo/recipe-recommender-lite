@@ -17,3 +17,11 @@ export const USER_POST_REQUEST_SCHEMA = Joi.object().keys({
 export const USER_PATCH_REQUEST_SCHEMA = Joi.object().keys({
   username: Joi.string().required(),
 });
+
+/**
+ * USER_LOGIN_GET_REQUEST_SCHEMA
+ */
+export const USER_LOGIN_GET_REQUEST_SCHEMA = Joi.object().keys({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});

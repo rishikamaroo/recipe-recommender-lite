@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserPatchRequestBody = exports.validateUserPostRequestBody = exports.validateRecipePatchRequestBody = exports.validateRecipePostRequestBody = void 0;
+exports.validateUserLoginRequestBody = exports.validateUserPatchRequestBody = exports.validateUserPostRequestBody = exports.validateRecipePatchRequestBody = exports.validateRecipePostRequestBody = void 0;
 const joi_1 = __importDefault(require("@hapi/joi"));
 const lodash_1 = __importDefault(require("lodash"));
 const recipe = __importStar(require("../schemas/recipe"));
@@ -84,7 +84,7 @@ const validateUserPostRequestBody = (req, res, next) => {
 };
 exports.validateUserPostRequestBody = validateUserPostRequestBody;
 /**
- * Patch recipe request body validation function
+ * Patch user request body validation function
  *
  * @param req - Request param
  * @param res - Response param
@@ -101,3 +101,21 @@ const validateUserPatchRequestBody = (req, res, next) => {
     }
 };
 exports.validateUserPatchRequestBody = validateUserPatchRequestBody;
+/**
+ * Get user login request body validation function
+ *
+ * @param req - Request param
+ * @param res - Response param
+ * @param next - next function
+ */
+const validateUserLoginRequestBody = (req, res, next) => {
+    try {
+        joi_1.default.assert(req.body, user.USER_LOGIN_GET_REQUEST_SCHEMA, { convert: false });
+        return next();
+    }
+    catch (err) {
+        const errMessage = lodash_1.default.get(err, 'details[0].message');
+        response_1.generateBadRequestErrorResponse(res, errMessage || err);
+    }
+};
+exports.validateUserLoginRequestBody = validateUserLoginRequestBody;

@@ -1,7 +1,7 @@
 "use strict";
 /* Copyright (c) 2021 Rishika Maroo */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TYPEORM_CONFIG = exports.PORT = exports.POSTGRES_CONNECT_URL = exports.POSTGRES_DB_NAME = exports.POSTGRES_PASSWORD = exports.POSTGRES_USER = exports.POSTGRES_HOST = exports.POSTGRES_PORT = exports.MONGO_CONNECT_URL = exports.MONGO_DB_NAME = exports.MONGO_HOST = exports.MONGO_PORT = void 0;
+exports.TYPEORM_CONFIG = exports.SECRET_KEY = exports.PORT = exports.POSTGRES_CONNECT_URL = exports.POSTGRES_DB_NAME = exports.POSTGRES_PASSWORD = exports.POSTGRES_USER = exports.POSTGRES_HOST = exports.POSTGRES_PORT = exports.MONGO_CONNECT_URL = exports.MONGO_DB_NAME = exports.MONGO_HOST = exports.MONGO_PORT = void 0;
 const user_1 = require("./entities/user");
 const dotenv = require('dotenv');
 dotenv.config();
@@ -26,6 +26,7 @@ exports.POSTGRES_CONNECT_URL = process.env.POSTGRES_CONNECT_URL ||
  * SERVER
  */
 exports.PORT = process.env.PORT || 3000;
+exports.SECRET_KEY = process.env.SECRET_KEY || 'my-secret-key';
 /**
  * TYPEORM
  */
