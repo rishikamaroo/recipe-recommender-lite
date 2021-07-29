@@ -1,0 +1,13 @@
+swagger: '2.0'
+info:
+  description: Node.js Resr API doc
+  version: 1.0.0
+  title: Node Rest API Documentation
+  termsOfService: 'http://swagger.io/terms'
+  contact: 
+    email: 'rishikamaroo@gmail.com'
+  lisence:
+    name: 'Apache 2.0'
+    url: 'http:/www.apache.org/licenses\LICENSE-2.0.html'
+  host: localhost:3000
+  basePath: /api/vi
