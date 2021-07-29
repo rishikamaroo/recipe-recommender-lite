@@ -1,30 +1,23 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
 import cors from 'cors';
-import pg from 'pg';
 import express from 'express';
 import recipeRoutes from './routes/recipe';
+import userRoutes from './routes/user';
 import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
 import { Logger } from './utils/logger';
-import {
-  MONGO_CONNECT_URL,
-  MONGO_DB_NAME,
-  PORT,
-  POSTGRES_CONNECT_URL,
-  POSTGRES_DB_NAME,
-} from './config';
+import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT, TYPEORM_CONFIG } from './config';
 import { errorHandler } from './middleware/errorHandler';
+import { ConnectionOptions, createConnection } from 'typeorm';
+
+export const connection = createConnection(TYPEORM_CONFIG as ConnectionOptions);
 
 /**
  * Initializes db connections
  */
 async function initDb(): Promise<void> {
-  const psqConnectionString = `${POSTGRES_CONNECT_URL}/${POSTGRES_DB_NAME}`;
-  const client = new pg.Client(psqConnectionString);
-  client.connect();
-
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {});
@@ -36,7 +29,7 @@ async function initDb(): Promise<void> {
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.info('*** Connected to database.');
+      logger.info('*** Connected to mongo database.');
     },
   );
   mongoose.set('useFindAndModify', false);
@@ -51,6 +44,7 @@ async function createApp() {
   app.use(cors());
   app.use(json());
   app.use('/api/v1/recipe', recipeRoutes);
+  app.use('/api/v1/user', userRoutes);
   app.use(errorHandler as express.ErrorRequestHandler);
   app.get('/', (_req, res, _next) => {
     return res.status(HTTPStatusCode.OK).json({

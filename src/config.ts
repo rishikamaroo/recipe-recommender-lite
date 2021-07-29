@@ -1,5 +1,7 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
+import { UserAccount } from './entities/user';
+
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -28,3 +30,17 @@ export const POSTGRES_CONNECT_URL =
  * SERVER
  */
 export const PORT = process.env.PORT || 3000;
+
+/**
+ * TYPEORM
+ */
+export const TYPEORM_CONFIG = {
+  type: 'postgres',
+  host: POSTGRES_HOST,
+  port: POSTGRES_PORT,
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB_NAME,
+  synchronize: true,
+  entities: [UserAccount],
+};

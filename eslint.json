@@ -6,7 +6,8 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "eslint-plugin-tsdoc"
+        "eslint-plugin-tsdoc",
+        "unused-imports"
     ],
     "rules": {
         "max-len": ["error", 120],
@@ -24,6 +25,7 @@
         "no-unexpected-multiline": "error",
         "no-extra-semi": "error",
         "quotes": [2, "single", { "avoidEscape": true }],
-        "tsdoc/syntax": ["warn", {"ignore": ["tsdoc-param-tag-missing-hyphen"]}]
+        "tsdoc/syntax": ["warn", {"ignore": ["tsdoc-param-tag-missing-hyphen"]}],
+        "unused-imports/no-unused-imports": "error"
     }
 }
