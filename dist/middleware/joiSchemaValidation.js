@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserPatchRequestBody = exports.validateUserPostRequestBody = exports.validateRecipePatchRequestBody = exports.validateRecipeGetRequestBody = exports.validateRecipePostRequestBody = void 0;
+exports.validateUserPatchRequestBody = exports.validateUserPostRequestBody = exports.validateRecipePatchRequestBody = exports.validateRecipePostRequestBody = void 0;
 const joi_1 = __importDefault(require("@hapi/joi"));
 const lodash_1 = __importDefault(require("lodash"));
 const recipe = __importStar(require("../schemas/recipe"));
@@ -47,24 +47,6 @@ const validateRecipePostRequestBody = (req, res, next) => {
     }
 };
 exports.validateRecipePostRequestBody = validateRecipePostRequestBody;
-/**
- * Get recipe request body validation function
- *
- * @param req - Request param
- * @param res - Response param
- * @param next - next function
- */
-const validateRecipeGetRequestBody = (req, res, next) => {
-    try {
-        joi_1.default.assert(req.body, recipe.RECIPE_GET_REQUEST_SCHEMA, { convert: false });
-        return next();
-    }
-    catch (err) {
-        const errMessage = lodash_1.default.get(err, 'details[0].message');
-        response_1.generateBadRequestErrorResponse(res, errMessage || err);
-    }
-};
-exports.validateRecipeGetRequestBody = validateRecipeGetRequestBody;
 /**
  * Patch recipe request body validation function
  *

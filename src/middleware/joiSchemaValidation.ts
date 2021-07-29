@@ -25,23 +25,6 @@ export const validateRecipePostRequestBody = (req: any, res: any, next: any) => 
 };
 
 /**
- * Get recipe request body validation function
- *
- * @param req - Request param
- * @param res - Response param
- * @param next - next function
- */
-export const validateRecipeGetRequestBody = (req: any, res: any, next: any) => {
-  try {
-    Joi.assert(req.body, recipe.RECIPE_GET_REQUEST_SCHEMA, { convert: false });
-    return next();
-  } catch (err) {
-    const errMessage = _.get(err, 'details[0].message');
-    generateBadRequestErrorResponse(res, errMessage || err);
-  }
-};
-
-/**
  * Patch recipe request body validation function
  *
  * @param req - Request param

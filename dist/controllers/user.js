@@ -24,8 +24,8 @@ const user_1 = require("../models/user");
 const signup = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userBody = Object.assign({ id: uuid_1.v4().toString(), createdAt: new Date() }, req.body);
-        yield user_1.createUserP(userBody);
-        response_1.generateCreateSuccessResponse(res);
+        const result = yield user_1.createUserP(userBody);
+        response_1.generateCreateSuccessResponse(res, result);
     }
     catch (err) {
         response_1.generateInternalServerErrorResponse(res, err);

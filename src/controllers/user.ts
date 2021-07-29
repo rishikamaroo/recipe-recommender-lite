@@ -25,8 +25,8 @@ export const signup: RequestHandler = async (req, res, _next) => {
       createdAt: new Date(),
       ...req.body,
     };
-    await createUserP(userBody);
-    generateCreateSuccessResponse(res);
+    const result = await createUserP(userBody);
+    generateCreateSuccessResponse(res, result);
   } catch (err) {
     generateInternalServerErrorResponse(res, err);
   }

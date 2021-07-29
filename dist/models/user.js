@@ -39,6 +39,7 @@ const logger = new logger_1.Logger();
 function createUserP(user) {
     return __awaiter(this, void 0, void 0, function* () {
         logger.debug('creating a user for id: ', user.id);
+        let addedUser;
         try {
             yield app_1.connection.then((connection) => __awaiter(this, void 0, void 0, function* () {
                 const userAcc = new user_1.UserAccount();
@@ -49,8 +50,9 @@ function createUserP(user) {
                 userAcc.phoneNumber = user.phoneNumber;
                 userAcc.email = user.email;
                 userAcc.createdAt = new Date();
-                yield connection.manager.save(userAcc);
+                addedUser = yield connection.manager.save(userAcc);
             }));
+            return { id: addedUser.id };
         }
         catch (err) {
             logger.error('error while creating a user ', err);
@@ -66,6 +68,9 @@ function getUserP(userId) {
             const result = yield app_1.connection.then((connection) => __awaiter(this, void 0, void 0, function* () {
                 return connection.manager.findOne(user_1.UserAccount, { id: userId });
             }));
+            if (!result) {
+                throw new error_1.NotFoundError('no user record found for id: ' + userId);
+            }
             return result;
         }
         catch (err) {

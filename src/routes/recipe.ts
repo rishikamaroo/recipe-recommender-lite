@@ -9,14 +9,13 @@ import {
   getRecipes,
 } from '../controllers/recipe';
 import {
-  validateRecipeGetRequestBody,
   validateRecipePatchRequestBody,
   validateRecipePostRequestBody,
 } from '../middleware/joiSchemaValidation';
 
 const router = Router();
 
-router.get('/:id', validateRecipeGetRequestBody, getRecipe);
+router.get('/:id', getRecipe);
 router.post('/', validateRecipePostRequestBody, createRecipe);
 router.patch('/:id', validateRecipePatchRequestBody, patchRecipe);
 router.get('/', getRecipes);

@@ -5,7 +5,7 @@ const express_1 = require("express");
 const recipe_1 = require("../controllers/recipe");
 const joiSchemaValidation_1 = require("../middleware/joiSchemaValidation");
 const router = express_1.Router();
-router.get('/:id', joiSchemaValidation_1.validateRecipeGetRequestBody, recipe_1.getRecipe);
+router.get('/:id', recipe_1.getRecipe);
 router.post('/', joiSchemaValidation_1.validateRecipePostRequestBody, recipe_1.createRecipe);
 router.patch('/:id', joiSchemaValidation_1.validateRecipePatchRequestBody, recipe_1.patchRecipe);
 router.get('/', recipe_1.getRecipes);

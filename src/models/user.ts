@@ -9,8 +9,9 @@ const HASH_ROUNDS = 6;
 
 const logger = new Logger();
 
-export async function createUserP(user: IUser): Promise<void> {
+export async function createUserP(user: IUser): Promise<{ id: string }> {
   logger.debug('creating a user for id: ', user.id);
+  let addedUser: UserAccount;
   try {
     await connection.then(async (connection) => {
       const userAcc = new UserAccount();
@@ -21,8 +22,10 @@ export async function createUserP(user: IUser): Promise<void> {
       userAcc.phoneNumber = user.phoneNumber;
       userAcc.email = user.email;
       userAcc.createdAt = new Date();
-      await connection.manager.save(userAcc);
+      addedUser = await connection.manager.save(userAcc);
     });
+
+    return { id: addedUser!.id };
   } catch (err) {
     logger.error('error while creating a user ', err);
     throw new InvalidRequestError(err.message);
@@ -35,6 +38,9 @@ export async function getUserP(userId: string): Promise<UserAccount | undefined>
     const result = await connection.then(async (connection) => {
       return connection.manager.findOne(UserAccount, { id: userId });
     });
+    if (!result) {
+      throw new NotFoundError('no user record found for id: ' + userId);
+    }
     return result;
   } catch (err) {
     logger.error('error while getting a user ', err);
