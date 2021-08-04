@@ -13,7 +13,6 @@ import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT, TYPEORM_CONFIG } from './config
 import { errorHandler } from './middleware/errorHandler';
 import { ConnectionOptions, createConnection } from 'typeorm';
 
-// 8e6b83ee207b39596fef52bd8385912d49371049b0f9b50cd4a9ae03d58b2c71
 export const connection = createConnection(TYPEORM_CONFIG as ConnectionOptions);
 
 /**
