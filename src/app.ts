@@ -30,7 +30,7 @@ async function initDb(): Promise<void> {
       useUnifiedTopology: true,
     } as ConnectOptions,
     () => {
-      logger.info('*** Connected to Database.');
+      logger.info('*** Connected to Database');
     },
   );
   mongoose.set('useFindAndModify', false);
