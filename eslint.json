@@ -13,7 +13,7 @@
         "max-len": ["error", 120],
         "no-caller": "error",
         "no-multi-spaces": "error",
-        "no-console": ["error", {"allow": ["log", "debug", "info", "warn", "error"]}],
+        "no-console": ["error", {"allow": ["debug", "info", "warn", "error"]}],
         "camelcase": "error",
         "no-irregular-whitespace": ["error", {"skipStrings": false}],
         "no-return-await": "error",

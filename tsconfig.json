@@ -4,13 +4,15 @@
     "emitDecoratorMetadata": true,
     "target": "es2015",
     "module": "commonjs",
+    "sourceMap": true,
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "dist",
+    "rootDir": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "types": [ "@types/sinon", "@types/mocha" ]
   }
 }

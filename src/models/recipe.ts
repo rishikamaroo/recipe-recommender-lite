@@ -13,13 +13,6 @@ const RecipeSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toObject: {
-      transform: function (_doc, ret, _option) {
-        delete ret._id;
-        delete ret.__v;
-        return ret;
-      },
-    },
   },
 );
 
@@ -37,7 +30,7 @@ async function createRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('creating a recipe for id: ', id);
   try {
     const result = await Recipe.create({ id: id, text: text });
-    return result.toObject();
+    return unsetExtraParams(result);
   } catch (err) {
     logger.error('error while creating a recipe ', err);
     throw new InvalidRequestError(err.message);
@@ -53,11 +46,11 @@ async function createRecipeP(id: string, text: string): Promise<IRecipe> {
 async function getRecipeP(id: string): Promise<IRecipe> {
   logger.debug('getting a recipe for id: ', id);
   try {
-    const results = await Recipe.find({ id: id });
-    if (results.length === 0) {
+    const result = await Recipe.findOne({ id: id });
+    if (!result) {
       throw new NotFoundError('no record found for id: ' + id);
     }
-    return _.map(results, (result) => result.toObject())[0];
+    return unsetExtraParams(result);
   } catch (err) {
     logger.error('error while getting a recipe ', err);
     throw new CustomError(err.message, err.code);
@@ -74,7 +67,7 @@ async function getRecipesP(): Promise<IRecipe[]> {
   logger.debug('getting all the recipies');
   try {
     const results = await Recipe.find({});
-    return _.map(results, (result) => result.toObject());
+    return _.map(results, (result) => unsetExtraParams(result)) as unknown as IRecipe[];
   } catch (err) {
     logger.error('error while getting recipes ', err);
     throw new CustomError(err.message, err.code);
@@ -90,9 +83,6 @@ async function getRecipesP(): Promise<IRecipe[]> {
  */
 async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
   logger.debug('patching text recipe for id & text: ', [id, text]);
-  if (!text) {
-    throw new InvalidRequestError('cannot update recipe with null text');
-  }
 
   try {
     const updatedResult = await Recipe.findOneAndUpdate(
@@ -103,8 +93,7 @@ async function patchRecipeP(id: string, text: string): Promise<IRecipe> {
     if (!updatedResult) {
       throw new NotFoundError('no record found for id: ' + id);
     }
-    logger.debug('the result is updated ', updatedResult);
-    return updatedResult.toObject();
+    return unsetExtraParams(updatedResult);
   } catch (err) {
     logger.error('error while patching text to a Recipe ', err);
     throw new CustomError(err.message, err.code);
@@ -128,6 +117,15 @@ async function deleteRecipeP(id: string): Promise<void> {
     logger.error('error while deleting a recipe ', err);
     throw new CustomError(err.message, err.code);
   }
+}
+
+/**
+ *
+ * @param result - any
+ * @returns Irecipe
+ */
+function unsetExtraParams(result: any): IRecipe {
+  return _.pick(result, ['id', 'text', 'createdAt', 'updatedAt']) as unknown as IRecipe;
 }
 
 export { Recipe, createRecipeP, deleteRecipeP, getRecipeP, getRecipesP, patchRecipeP };

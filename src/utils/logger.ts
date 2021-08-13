@@ -56,10 +56,12 @@ export class Logger implements LogInterface {
    * @param supportingDetails - array of any supporting details
    */
   private emitLogMessage(msgType: LogTypes, color: string, msg: string, supportingDetails: any[]) {
+    /* eslint-disable no-console */
     if (supportingDetails.length > 0) {
       console.log('[' + color + '' + msgType.toUpperCase() + '] ' + msg + supportingDetails);
     } else {
       console.log('[' + color + '' + msgType.toUpperCase() + '] ' + msg);
     }
+    /* eslint-disable no-console */
   }
 }
