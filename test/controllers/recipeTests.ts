@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 Rishika Maroo */
+
 import expect = require('expect.js');
 import sinon from 'sinon';
 import mongoose from 'mongoose';
