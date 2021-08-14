@@ -39,8 +39,8 @@ describe('recipe model', async () => {
 
   it('Patches text to a recipe', async () => {
     const newText = 'new indian recipe';
-    (sampleRecipe.text = newText),
-      sandbox.stub(mongoose.Model, 'findOneAndUpdate').resolves(sampleRecipe);
+    sampleRecipe.text = newText;
+    sandbox.stub(mongoose.Model, 'findOneAndUpdate').resolves(sampleRecipe);
     const response = await patchRecipeP('ee9323b2-251c-44be-97e4-ff2a6403b890', newText);
     expect(response.text).to.not.eql('indian masala pasta');
     expect(response.text).to.eql(newText);
@@ -48,8 +48,7 @@ describe('recipe model', async () => {
 
   it('deletes a recipe', async () => {
     const newText = 'new indian recipe';
-    (sampleRecipe.text = newText),
-      sandbox.stub(mongoose.Model, 'deleteOne').resolves({ deleteCount: 1 });
+    sandbox.stub(mongoose.Model, 'deleteOne').resolves({ deleteCount: 1 });
     const response = await deleteRecipeP('ee9323b2-251c-44be-97e4-ff2a6403b890');
   });
 

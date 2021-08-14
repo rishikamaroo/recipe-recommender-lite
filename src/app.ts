@@ -16,6 +16,11 @@ import { ConnectionOptions, createConnection } from 'typeorm';
 export const connection = createConnection(TYPEORM_CONFIG as ConnectionOptions);
 
 /**
+ * This export is for test only
+ */
+export let server: any;
+
+/**
  * Initializes db connections
  */
 async function initDb(): Promise<void> {
@@ -54,7 +59,7 @@ async function createApp() {
       version: '1.0.0',
     });
   });
-  app.listen(PORT, () => {
+  server = app.listen(PORT, () => {
     logger.info(`*** Server listening to port: ${PORT}...`);
   });
 }
