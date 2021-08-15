@@ -57,7 +57,7 @@ export async function getUserP(userId: string): Promise<UserAccount | undefined>
     return result;
   } catch (err) {
     logger.error('error while getting a user ', err);
-    throw new InvalidRequestError(err.message);
+    throw err;
   }
 }
 
@@ -100,9 +100,13 @@ export async function getUserLoginP(username: string, password: string): Promise
   try {
     const repository = (await connection).getRepository(UserAccount);
     const field = await repository.findOne({ select: ['password'], where: { username: username } });
+    if (!field) {
+      throw new InvalidRequestError('invalid input, please check username');
+    }
+
     return await compareIt(password, field!.password);
   } catch (err) {
-    throw new InvalidRequestError(err.message);
+    throw err;
   }
 }
 
