@@ -73,5 +73,9 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rishikamaroo/recipe-recommender-lite.git"
+  }  
 }
