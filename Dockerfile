@@ -12,6 +12,7 @@ COPY eslint.json ./
 
 # copy source code to /app/src folder
 COPY src /app/src
+COPY test /app/test
 
 RUN npm install -g typescript
 RUN npm install
@@ -20,4 +21,4 @@ RUN tsc
 
 # start
 EXPOSE 3000
-ENTRYPOINT node /app/dist/app.js
+ENTRYPOINT ["npm", "run", "start"]
