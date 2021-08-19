@@ -1,11 +1,10 @@
 /* Copyright (c) 2021 Rishika Maroo */
 
 import * as bcrypt from 'bcrypt';
-import { connection } from '../app';
-import { HASH_ROUNDS, HttpStatusMessage } from '../constants';
+import { HASH_ROUNDS } from '../constants';
 import { UserAccount } from '../entities/user';
 import { IUser } from '../types';
-import { InvalidRequestError, NotFoundError } from '../utils/error';
+import { InvalidRequestError } from '../utils/error';
 import { Logger } from '../utils/logger';
 
 const logger = new Logger();
@@ -20,7 +19,7 @@ export async function createUserP(user: IUser): Promise<{ id: string }> {
   logger.debug('creating a user for id: ', user.id);
   let addedUser: UserAccount;
   try {
-    await connection.then(async (connection) => {
+    /*await connection.then(async (connection) => {
       const userAcc = new UserAccount();
       userAcc.id = user.id;
       userAcc.name = user.name;
@@ -30,7 +29,7 @@ export async function createUserP(user: IUser): Promise<{ id: string }> {
       userAcc.email = user.email;
       userAcc.createdAt = new Date();
       addedUser = await connection.manager.save(userAcc);
-    });
+    });*/
 
     return { id: addedUser!.id };
   } catch (err) {
@@ -48,13 +47,13 @@ export async function createUserP(user: IUser): Promise<{ id: string }> {
 export async function getUserP(userId: string): Promise<UserAccount | undefined> {
   logger.debug('getting a user for id: ', userId);
   try {
-    const result = await connection.then(async (connection) => {
+    /*const result = await connection.then(async (connection) => {
       return connection.manager.findOne(UserAccount, { id: userId });
     });
     if (!result) {
       throw new NotFoundError('no user record found for id: ' + userId);
-    }
-    return result;
+    }*/
+    return undefined;
   } catch (err) {
     logger.error('error while getting a user ', err);
     throw err;
@@ -74,15 +73,15 @@ export async function updateUserP(
 ): Promise<UserAccount | undefined> {
   logger.debug('updating a user for id: ', userId);
   try {
-    const result = await getUserP(userId);
+    /*const result = await getUserP(userId);
     if (!result) {
       throw new NotFoundError(HttpStatusMessage.NotFoundError);
     }
     result.username = username;
     await connection.then(async (connection) => {
       await connection.manager.save(result);
-    });
-    return result;
+    });*/
+    return undefined;
   } catch (err) {
     logger.error('error while updating a user ', err);
     throw new InvalidRequestError(err.message);
@@ -98,13 +97,14 @@ export async function updateUserP(
  */
 export async function getUserLoginP(username: string, password: string): Promise<boolean> {
   try {
-    const repository = (await connection).getRepository(UserAccount);
+    /*const repository = (await connection).getRepository(UserAccount);
     const field = await repository.findOne({ select: ['password'], where: { username: username } });
     if (!field) {
       throw new InvalidRequestError('invalid input, please check username');
     }
 
-    return await compareIt(password, field!.password);
+    return await compareIt(password, field!.password);*/
+    return true;
   } catch (err) {
     throw err;
   }
@@ -116,7 +116,7 @@ export async function getUserLoginP(username: string, password: string): Promise
  * @param password - string
  * @returns string
  */
-async function hashIt(password: string): Promise<string> {
+export async function hashIt(password: string): Promise<string> {
   const salt = await bcrypt.genSalt(HASH_ROUNDS);
   const hashed = await bcrypt.hash(password, salt);
   return hashed;
@@ -129,7 +129,7 @@ async function hashIt(password: string): Promise<string> {
  * @param hashedPassword - string
  * @returns Promise<boolean>
  */
-async function compareIt(password: string, hashedPassword: string): Promise<boolean> {
+export async function compareIt(password: string, hashedPassword: string): Promise<boolean> {
   const validPassword = await bcrypt.compare(password, hashedPassword);
   return validPassword;
 }
