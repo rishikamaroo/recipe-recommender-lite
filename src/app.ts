@@ -9,10 +9,11 @@ import { json } from 'body-parser';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { HTTPStatusCode } from './constants';
 import { Logger } from './utils/logger';
-import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT } from './config';
+import { MONGO_CONNECT_URL, MONGO_DB_NAME, PORT, TYPEORM_CONFIG } from './config';
 import { errorHandler } from './middleware/errorHandler';
+import { ConnectionOptions, createConnection } from 'typeorm';
 
-// export const connection = createConnection(TYPEORM_CONFIG as ConnectionOptions);
+export const connection = createConnection(TYPEORM_CONFIG as ConnectionOptions);
 
 /**
  * This export is for test only

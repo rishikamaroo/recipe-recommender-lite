@@ -13,7 +13,7 @@ services:
     environment:
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: postgres
-      POSTGRES_DB: typeormdemoq
+      POSTGRES_DB: typeormdemo
     ports:
       - 35432:5432
   
