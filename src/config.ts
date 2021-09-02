@@ -20,7 +20,7 @@ export const MONGO_CONNECT_URL =
 export const POSTGRES_PORT = process.env.POSTGRES_PORT || 5432;
 export const POSTGRES_HOST = process.env.POSTGRES_HOST || 'localhost';
 export const POSTGRES_USER = process.env.POSTGRES_USER || 'postgres';
-export const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || '1234';
+export const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || 'password';
 export const POSTGRES_DB_NAME = 'typeormdemo';
 export const POSTGRES_CONNECT_URL =
   process.env.POSTGRES_CONNECT_URL ||
